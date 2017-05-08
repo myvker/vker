@@ -44,7 +44,7 @@
 #+begin_src emacs-lisp
 (defun dotspacemacs/layers ()
   (setq-default
-   dotspacemacs-additional-packages '(yasnippet))
+   dotspacemacs-additional-packages '(yasnippet)))
 #+end_src
 * golang开发环境安装
 ** 安装golang的支持
