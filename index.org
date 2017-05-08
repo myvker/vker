@@ -1,5 +1,5 @@
 #+title:维科网
 
-[[http:/emacs.html][emacs精简使用]]
+[[./emacs.html][emacs精简使用]]
 
 
