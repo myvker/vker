@@ -50,7 +50,6 @@
 ** 安装golang的支持
 ** 安装自动代码补全
 ** 安装HTML、javascript支持
-* 发行自己的emacs(windows)
 ** 环境变量设置
 *** 设置系统变量
 HOME
@@ -107,7 +106,6 @@ go get github.com/monochromegane/the_platinum_searcher/...
 #+end_src
 
 *** 分设gopath
-*** 设置默认加载路径
 *** 显示菜单
 #+begin_src sh
 M+x menu
@@ -116,4 +114,27 @@ M+x menu
 #+begin_src sh
 M+x
 #+end_src
+
+* 拆包即用golang开发环境
+[[https://coding.net/u/vker/p/tangram/git][Tangram
+]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
