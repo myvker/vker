@@ -32,6 +32,20 @@
 #+end_src
 *** 设置全屏
 *** 设置logo
+*** 设置neotree和编码字体
+#+begin_src emacs-lisp
+(setq projectile-switch-project-action 'neotree-projectile-action)
+(setq neo-show-hidden-files nil)
+(setq neo-smart-open t)
+(global-set-key [f2] 'neotree-toggle)
+(set-language-environment "UTF-8")
+#+end_src
+*** 指定安装包
+#+begin_src emacs-lisp
+(defun dotspacemacs/layers ()
+  (setq-default
+   dotspacemacs-additional-packages '(yasnippet))
+#+end_src
 * golang开发环境安装
 ** 安装golang的支持
 ** 安装自动代码补全

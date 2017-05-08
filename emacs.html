@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-05-08 一 15:50 -->
+<!-- 2017-05-08 一 17:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>EMACS精简使用</title>
@@ -232,56 +232,58 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc8737af">1. emacs的安装</a>
+<li><a href="#org3d247c9">1. emacs的安装</a>
 <ul>
-<li><a href="#org4c60d39">1.1. emacs组成</a>
+<li><a href="#org11b5391">1.1. emacs组成</a>
 <ul>
-<li><a href="#org87622ea">1.1.1. emacs安装包和依赖库</a></li>
+<li><a href="#orgf69b5c9">1.1.1. emacs安装包和依赖库</a></li>
 </ul>
 </li>
-<li><a href="#org7e40ca2">1.2. 64位emacs安装</a>
+<li><a href="#org1331fee">1.2. 64位emacs安装</a>
 <ul>
-<li><a href="#orgc5457c5">1.2.1. 安装emacs</a></li>
-<li><a href="#orgd225ee9">1.2.2. 安装依赖</a></li>
-<li><a href="#org505ca77">1.2.3. emacs的安装</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#orgad4dfdc">2. emacs插件安装方式</a>
-<ul>
-<li><a href="#org14cd1c0">2.1. 指令安装</a></li>
-<li><a href="#org3566ce2">2.2. 菜单方式安装</a></li>
-</ul>
-</li>
-<li><a href="#org8fe0a64">3. spacemacs安装</a>
-<ul>
-<li><a href="#orgc6ac277">3.1. spacemacs安装</a>
-<ul>
-<li><a href="#orgf65b5f9">3.1.1. 设置清华源</a></li>
-<li><a href="#org79aca35">3.1.2. 设置全屏</a></li>
-<li><a href="#org4265710">3.1.3. 设置logo</a></li>
+<li><a href="#org045cb44">1.2.1. 安装emacs</a></li>
+<li><a href="#org650c777">1.2.2. 安装依赖</a></li>
+<li><a href="#orgfb70bd4">1.2.3. emacs的安装</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org76e2eaf">4. golang开发环境安装</a>
+<li><a href="#org9a08a31">2. emacs插件安装方式</a>
 <ul>
-<li><a href="#org1e83309">4.1. 安装golang的支持</a></li>
-<li><a href="#org567d257">4.2. 安装自动代码补全</a></li>
-<li><a href="#org52117ac">4.3. 安装HTML、javascript支持</a></li>
+<li><a href="#org7a905c0">2.1. 指令安装</a></li>
+<li><a href="#orgf2c8f32">2.2. 菜单方式安装</a></li>
 </ul>
 </li>
-<li><a href="#org01b3ac9">5. 发行自己的emacs(windows)</a>
+<li><a href="#org6bc9548">3. spacemacs安装</a>
 <ul>
-<li><a href="#org8a8e0eb">5.1. 环境变量设置</a>
+<li><a href="#org15adcb0">3.1. spacemacs安装</a>
 <ul>
-<li><a href="#org4a86260">5.1.1. 设置系统变量</a></li>
-<li><a href="#org7806c9a">5.1.2. .emacs设置</a></li>
-<li><a href="#org8be8fca">5.1.3. 分设gopath</a></li>
-<li><a href="#org22c1f17">5.1.4. 设置默认加载路径</a></li>
-<li><a href="#orgeedd032">5.1.5. 显示菜单</a></li>
-<li><a href="#org0465a6d">5.1.6. 快速查找指令</a></li>
+<li><a href="#org14c2395">3.1.1. 设置清华源</a></li>
+<li><a href="#org056ef70">3.1.2. 设置全屏</a></li>
+<li><a href="#org554c0b6">3.1.3. 设置logo</a></li>
+<li><a href="#org91d9e4e">3.1.4. 设置neotree和编码字体</a></li>
+<li><a href="#org1421f86">3.1.5. 指定安装包</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org31ef5c0">4. golang开发环境安装</a>
+<ul>
+<li><a href="#org1f97c40">4.1. 安装golang的支持</a></li>
+<li><a href="#orgb9990b8">4.2. 安装自动代码补全</a></li>
+<li><a href="#org7bcfc18">4.3. 安装HTML、javascript支持</a></li>
+</ul>
+</li>
+<li><a href="#org8d2a191">5. 发行自己的emacs(windows)</a>
+<ul>
+<li><a href="#org542f7fb">5.1. 环境变量设置</a>
+<ul>
+<li><a href="#org20d15f2">5.1.1. 设置系统变量</a></li>
+<li><a href="#org04c4578">5.1.2. .emacs设置</a></li>
+<li><a href="#org694f7fa">5.1.3. 分设gopath</a></li>
+<li><a href="#org51ede92">5.1.4. 设置默认加载路径</a></li>
+<li><a href="#org1b67e49">5.1.5. 显示菜单</a></li>
+<li><a href="#orged14ce6">5.1.6. 快速查找指令</a></li>
 </ul>
 </li>
 </ul>
@@ -289,14 +291,14 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc8737af" class="outline-2">
-<h2 id="orgc8737af"><span class="section-number-2">1</span> emacs的安装</h2>
+<div id="outline-container-org3d247c9" class="outline-2">
+<h2 id="org3d247c9"><span class="section-number-2">1</span> emacs的安装</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-org4c60d39" class="outline-3">
-<h3 id="org4c60d39"><span class="section-number-3">1.1</span> emacs组成</h3>
+</div><div id="outline-container-org11b5391" class="outline-3">
+<h3 id="org11b5391"><span class="section-number-3">1.1</span> emacs组成</h3>
 <div class="outline-text-3" id="text-1-1">
-</div><div id="outline-container-org87622ea" class="outline-4">
-<h4 id="org87622ea"><span class="section-number-4">1.1.1</span> emacs安装包和依赖库</h4>
+</div><div id="outline-container-orgf69b5c9" class="outline-4">
+<h4 id="orgf69b5c9"><span class="section-number-4">1.1.1</span> emacs安装包和依赖库</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <p>
 emacs的安装包地址
@@ -305,17 +307,17 @@ emacs的依赖库
 </div>
 </div>
 </div>
-<div id="outline-container-org7e40ca2" class="outline-3">
-<h3 id="org7e40ca2"><span class="section-number-3">1.2</span> 64位emacs安装</h3>
+<div id="outline-container-org1331fee" class="outline-3">
+<h3 id="org1331fee"><span class="section-number-3">1.2</span> 64位emacs安装</h3>
 <div class="outline-text-3" id="text-1-2">
-</div><div id="outline-container-orgc5457c5" class="outline-4">
-<h4 id="orgc5457c5"><span class="section-number-4">1.2.1</span> 安装emacs</h4>
+</div><div id="outline-container-org045cb44" class="outline-4">
+<h4 id="org045cb44"><span class="section-number-4">1.2.1</span> 安装emacs</h4>
 </div>
-<div id="outline-container-orgd225ee9" class="outline-4">
-<h4 id="orgd225ee9"><span class="section-number-4">1.2.2</span> 安装依赖</h4>
+<div id="outline-container-org650c777" class="outline-4">
+<h4 id="org650c777"><span class="section-number-4">1.2.2</span> 安装依赖</h4>
 </div>
-<div id="outline-container-org505ca77" class="outline-4">
-<h4 id="org505ca77"><span class="section-number-4">1.2.3</span> emacs的安装</h4>
+<div id="outline-container-orgfb70bd4" class="outline-4">
+<h4 id="orgfb70bd4"><span class="section-number-4">1.2.3</span> emacs的安装</h4>
 <div class="outline-text-4" id="text-1-2-3">
 <p>
 配置字体生成.emacs文件和.emacs.d目录
@@ -325,11 +327,11 @@ emacs的依赖库
 </div>
 </div>
 </div>
-<div id="outline-container-orgad4dfdc" class="outline-2">
-<h2 id="orgad4dfdc"><span class="section-number-2">2</span> emacs插件安装方式</h2>
+<div id="outline-container-org9a08a31" class="outline-2">
+<h2 id="org9a08a31"><span class="section-number-2">2</span> emacs插件安装方式</h2>
 <div class="outline-text-2" id="text-2">
-</div><div id="outline-container-org14cd1c0" class="outline-3">
-<h3 id="org14cd1c0"><span class="section-number-3">2.1</span> 指令安装</h3>
+</div><div id="outline-container-org7a905c0" class="outline-3">
+<h3 id="org7a905c0"><span class="section-number-3">2.1</span> 指令安装</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 设置源
@@ -342,18 +344,18 @@ emacs的依赖库
 </div>
 </div>
 </div>
-<div id="outline-container-org3566ce2" class="outline-3">
-<h3 id="org3566ce2"><span class="section-number-3">2.2</span> 菜单方式安装</h3>
+<div id="outline-container-orgf2c8f32" class="outline-3">
+<h3 id="orgf2c8f32"><span class="section-number-3">2.2</span> 菜单方式安装</h3>
 </div>
 </div>
-<div id="outline-container-org8fe0a64" class="outline-2">
-<h2 id="org8fe0a64"><span class="section-number-2">3</span> spacemacs安装</h2>
+<div id="outline-container-org6bc9548" class="outline-2">
+<h2 id="org6bc9548"><span class="section-number-2">3</span> spacemacs安装</h2>
 <div class="outline-text-2" id="text-3">
-</div><div id="outline-container-orgc6ac277" class="outline-3">
-<h3 id="orgc6ac277"><span class="section-number-3">3.1</span> spacemacs安装</h3>
+</div><div id="outline-container-org15adcb0" class="outline-3">
+<h3 id="org15adcb0"><span class="section-number-3">3.1</span> spacemacs安装</h3>
 <div class="outline-text-3" id="text-3-1">
-</div><div id="outline-container-orgf65b5f9" class="outline-4">
-<h4 id="orgf65b5f9"><span class="section-number-4">3.1.1</span> 设置清华源</h4>
+</div><div id="outline-container-org14c2395" class="outline-4">
+<h4 id="org14c2395"><span class="section-number-4">3.1.1</span> 设置清华源</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defun</span> <span style="color: #bc6ec5; font-weight: bold;">dotspacemacs/user-init</span> <span style="color: #bc6ec5;">()</span>
@@ -366,38 +368,62 @@ emacs的依赖库
 </div>
 </div>
 </div>
-<div id="outline-container-org79aca35" class="outline-4">
-<h4 id="org79aca35"><span class="section-number-4">3.1.2</span> 设置全屏</h4>
+<div id="outline-container-org056ef70" class="outline-4">
+<h4 id="org056ef70"><span class="section-number-4">3.1.2</span> 设置全屏</h4>
 </div>
-<div id="outline-container-org4265710" class="outline-4">
-<h4 id="org4265710"><span class="section-number-4">3.1.3</span> 设置logo</h4>
+<div id="outline-container-org554c0b6" class="outline-4">
+<h4 id="org554c0b6"><span class="section-number-4">3.1.3</span> 设置logo</h4>
+</div>
+<div id="outline-container-org91d9e4e" class="outline-4">
+<h4 id="org91d9e4e"><span class="section-number-4">3.1.4</span> 设置neotree和编码字体</h4>
+<div class="outline-text-4" id="text-3-1-4">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #4f97d7;">(</span>setq projectile-switch-project-action 'neotree-projectile-action<span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span>setq neo-show-hidden-files nil<span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span>setq neo-smart-open t<span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span>global-set-key <span style="color: #bc6ec5;">[</span>f2<span style="color: #bc6ec5;">]</span> 'neotree-toggle<span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span>set-language-environment <span style="color: #2d9574;">"UTF-8"</span><span style="color: #4f97d7;">)</span>
+</pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org76e2eaf" class="outline-2">
-<h2 id="org76e2eaf"><span class="section-number-2">4</span> golang开发环境安装</h2>
+<div id="outline-container-org1421f86" class="outline-4">
+<h4 id="org1421f86"><span class="section-number-4">3.1.5</span> 指定安装包</h4>
+<div class="outline-text-4" id="text-3-1-5">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">defun</span> <span style="color: #bc6ec5; font-weight: bold;">dotspacemacs/layers</span> <span style="color: #bc6ec5;">()</span>
+  <span style="color: #bc6ec5;">(</span>setq-default
+   dotspacemacs-additional-packages '<span style="color: #2d9574;">(</span>yasnippet<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org31ef5c0" class="outline-2">
+<h2 id="org31ef5c0"><span class="section-number-2">4</span> golang开发环境安装</h2>
 <div class="outline-text-2" id="text-4">
-</div><div id="outline-container-org1e83309" class="outline-3">
-<h3 id="org1e83309"><span class="section-number-3">4.1</span> 安装golang的支持</h3>
+</div><div id="outline-container-org1f97c40" class="outline-3">
+<h3 id="org1f97c40"><span class="section-number-3">4.1</span> 安装golang的支持</h3>
 </div>
-<div id="outline-container-org567d257" class="outline-3">
-<h3 id="org567d257"><span class="section-number-3">4.2</span> 安装自动代码补全</h3>
+<div id="outline-container-orgb9990b8" class="outline-3">
+<h3 id="orgb9990b8"><span class="section-number-3">4.2</span> 安装自动代码补全</h3>
 </div>
-<div id="outline-container-org52117ac" class="outline-3">
-<h3 id="org52117ac"><span class="section-number-3">4.3</span> 安装HTML、javascript支持</h3>
+<div id="outline-container-org7bcfc18" class="outline-3">
+<h3 id="org7bcfc18"><span class="section-number-3">4.3</span> 安装HTML、javascript支持</h3>
 </div>
 </div>
-<div id="outline-container-org01b3ac9" class="outline-2">
-<h2 id="org01b3ac9"><span class="section-number-2">5</span> 发行自己的emacs(windows)</h2>
+<div id="outline-container-org8d2a191" class="outline-2">
+<h2 id="org8d2a191"><span class="section-number-2">5</span> 发行自己的emacs(windows)</h2>
 <div class="outline-text-2" id="text-5">
-</div><div id="outline-container-org8a8e0eb" class="outline-3">
-<h3 id="org8a8e0eb"><span class="section-number-3">5.1</span> 环境变量设置</h3>
+</div><div id="outline-container-org542f7fb" class="outline-3">
+<h3 id="org542f7fb"><span class="section-number-3">5.1</span> 环境变量设置</h3>
 <div class="outline-text-3" id="text-5-1">
-</div><div id="outline-container-org4a86260" class="outline-4">
-<h4 id="org4a86260"><span class="section-number-4">5.1.1</span> 设置系统变量</h4>
+</div><div id="outline-container-org20d15f2" class="outline-4">
+<h4 id="org20d15f2"><span class="section-number-4">5.1.1</span> 设置系统变量</h4>
 </div>
-<div id="outline-container-org7806c9a" class="outline-4">
-<h4 id="org7806c9a"><span class="section-number-4">5.1.2</span> .emacs设置</h4>
+<div id="outline-container-org04c4578" class="outline-4">
+<h4 id="org04c4578"><span class="section-number-4">5.1.2</span> .emacs设置</h4>
 <div class="outline-text-4" id="text-5-1-2">
 <p>
 以下设置不起作用
@@ -486,14 +512,14 @@ or
 </div>
 </div>
 </div>
-<div id="outline-container-org8be8fca" class="outline-4">
-<h4 id="org8be8fca"><span class="section-number-4">5.1.3</span> 分设gopath</h4>
+<div id="outline-container-org694f7fa" class="outline-4">
+<h4 id="org694f7fa"><span class="section-number-4">5.1.3</span> 分设gopath</h4>
 </div>
-<div id="outline-container-org22c1f17" class="outline-4">
-<h4 id="org22c1f17"><span class="section-number-4">5.1.4</span> 设置默认加载路径</h4>
+<div id="outline-container-org51ede92" class="outline-4">
+<h4 id="org51ede92"><span class="section-number-4">5.1.4</span> 设置默认加载路径</h4>
 </div>
-<div id="outline-container-orgeedd032" class="outline-4">
-<h4 id="orgeedd032"><span class="section-number-4">5.1.5</span> 显示菜单</h4>
+<div id="outline-container-org1b67e49" class="outline-4">
+<h4 id="org1b67e49"><span class="section-number-4">5.1.5</span> 显示菜单</h4>
 <div class="outline-text-4" id="text-5-1-5">
 <div class="org-src-container">
 <pre class="src src-sh">M+x menu
@@ -501,8 +527,8 @@ or
 </div>
 </div>
 </div>
-<div id="outline-container-org0465a6d" class="outline-4">
-<h4 id="org0465a6d"><span class="section-number-4">5.1.6</span> 快速查找指令</h4>
+<div id="outline-container-orged14ce6" class="outline-4">
+<h4 id="orged14ce6"><span class="section-number-4">5.1.6</span> 快速查找指令</h4>
 <div class="outline-text-4" id="text-5-1-6">
 <div class="org-src-container">
 <pre class="src src-sh">M+x
@@ -514,7 +540,7 @@ or
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2017-05-08 一 15:50</p>
+<p class="date">Created: 2017-05-08 一 17:53</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
