@@ -54,11 +54,6 @@
 ** 环境变量设置
 *** 设置系统变量
 *** .emacs设置
-以下设置不起作用
-#+begin_src emacs-lisp
-(setenv "HOME" "../tangram/")
-#+end_src
-直接添加环境变量HOME，该路径直接指向.emacs文件所在路径
 直接执行
 #+begin_src go
 go get -u -v golang.org/x/tools/cmd/gorename
