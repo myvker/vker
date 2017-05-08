@@ -1,6 +1,7 @@
 [[file:./img/logo.png]]
 
 [[http://www.bvok.net][博微网]]
+
 [[./emacs.html][emacs简单使用]]
 
 
