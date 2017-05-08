@@ -107,22 +107,9 @@ go get github.com/monochromegane/the_platinum_searcher/...
 #+end_src
 
 #+begin_src emacs-lisp
-  (go :variables go-use-gometalinter t)
-#+end_src
-
-#+begin_src emacs-lisp
   (setq gofmt-command "goimports")
 #+end_src
 
-or
-
-#+begin_src emacs-lisp
-  (go :variables gofmt-command "goimports")
-#+end_src
-
-#+begin_src emacs-lisp
-  (go :variables go-tab-width 4)
-#+end_src
 *** 分设gopath
 *** 设置默认加载路径
 *** 显示菜单
