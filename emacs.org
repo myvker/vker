@@ -1,4 +1,4 @@
-#+title: EMACS精简使用
+#+title: EMACS简单使用
 * emacs的安装
 ** emacs组成
 *** emacs安装包和依赖库

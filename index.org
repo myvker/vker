@@ -2,6 +2,6 @@
 
 [[file:./img/vker.jpg]]
 
-[[./emacs.html][emacs精简使用]]
+[[./emacs.html][emacs简单使用]]
 
 
