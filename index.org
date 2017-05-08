@@ -1,7 +1,6 @@
-#+title:微科网
+[[file:./img/logo.png]]
 
-[[file:./img/vker.jpg]]
-
+[[http://www.bvok.net][博微网]]
 [[./emacs.html][emacs简单使用]]
 
 
