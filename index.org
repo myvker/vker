@@ -1,4 +1,4 @@
-#+title:维科网
+#+title:微科网
 
 [[file:./img/vker.jpg]]
 
