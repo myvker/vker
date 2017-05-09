@@ -31,7 +31,8 @@ $ sudo yum-config-manager --enable docker-ce-edge
 #$ sudo yum-config-manager --disable docker-ce-edge
 $ sudo yum makecache fast
 $ sudo yum install docker-ce
-$ yum list docker-ce.x86_64 --showduplicates |sort -r docker-ce.x86_64 17.03.0.el7 docker-ce-stable  
+#$ sudo yum install docker-ce-<VERSION>
+#$ yum list docker-ce.x86_64 --showduplicates |sort -r docker-ce.x86_64 17.03.0.el7 docker-ce-stable  
 $ sudo systemctl start docker
 $ sudo docker run hello-world
 #+end_src
