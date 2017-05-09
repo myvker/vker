@@ -99,7 +99,8 @@ go get github.com/monochromegane/the_platinum_searcher/...
 #+end_src
 
 #+begin_src sh
-  gometalinter --install --update
+ gocode set propose-builtins true 
+ gometalinter --install --update
 #+end_src
 
 #+begin_src emacs-lisp
