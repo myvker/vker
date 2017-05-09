@@ -19,3 +19,13 @@ su root
 exit
 #再输入exit断开远程连接
 #+end_src
+* Docker CE安装
+** Docker CE
+#+begin_src sh
+$ sudo yum install -y yum-utils
+$ sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+$ sudo yum-config-manager --enable docker-ce-edge
+$ sudo yum-config-manager --disable docker-ce-edge
+#+end_src
