@@ -1,4 +1,4 @@
-#+title: 一步步精通Docker容器实战视频课程VKER007
+#+title: 一步步精通Docker容器实战
 * Docker简介
 file:./img/docker/docker.png
 * CentOS7安装和基本使用
