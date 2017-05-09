@@ -1,4 +1,6 @@
 #+tilte:一步步精通Docker容器实战视频课程VKER007
+* Docker简介
+file:./img/docker/docker.png
 * CentOS7安装和基本使用
 ** 虚拟机中安装CentOS7
 ** 备份安装镜像和快照的使用
