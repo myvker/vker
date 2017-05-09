@@ -3,7 +3,7 @@
 file:./img/docker/docker.png
 * CentOS7安装和基本使用
 ** 虚拟机中安装CentOS7
-** 备份安装镜像和快照的使用
+** 备份安装镜像和通过VMware制作快照
 ** Windows下远程连接CentOS7
 ** Linux下远程连接CentOS7
 #+begin_src sh
