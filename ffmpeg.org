@@ -1,4 +1,4 @@
-#+title:ffmpeg
+#+title:ffmpeg简单使用
 
 * 视屏截取
 #+begin_src sh
