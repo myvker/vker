@@ -6,4 +6,11 @@
 ** Linux下远程连接CentOS7
 #+begin_src sh
 ssh root@192.168.1.105
+#输入密码
+#切换到root用户
+su root
+#输入root密码
+#退出root账户进入user账户
+exit
+#再输入exit断开远程连接
 #+end_src
