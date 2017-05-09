@@ -102,7 +102,7 @@ go get github.com/monochromegane/the_platinum_searcher/...
  gocode set propose-builtins true 
  gometalinter --install --update
 #+end_src
-
+gocode的propose-builtins（默认为false，不会自动联想go语言内置的类型、常量和方法等）
 #+begin_src emacs-lisp
   (setq gofmt-command "goimports")
 #+end_src
