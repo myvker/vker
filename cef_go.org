@@ -1,4 +1,7 @@
 #+title: Golang GUI程序开发
 * CEF
 Cef项目地址[[https://bitbucket.org/chromiumembedded/cef][https://bitbucket.org/chromiumembedded/cef]]
+
 编译库下载地址 [[http://opensource.spotify.com/cefbuilds/index.html][http://opensource.spotify.com/cefbuilds/index.html]]
+
+Golang GUI [[https://github.com/myvker/golanggui][https://github.com/myvker/golanggui]]
