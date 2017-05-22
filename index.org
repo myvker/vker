@@ -2,10 +2,16 @@
 
 [[http://www.bvok.net][博微网]]
 
-[[./emacs.html][emacs简单使用]]
+[[http://edu.51cto.com/lecturer/index/user_id-10723570.html][51cto]]
+
+[[./cef_go.html][Golang GUI 开发]]
+
+[[./emacs.html][Emacs简单使用]]
 
 [[./docker.html][一步步精通Docker容器实战]]
 
-[[./ffmpeg.html][ffmpeg简单使用]]
+[[./ffmpeg.html][Ffmpeg简单使用]]
 
+[[https://coding.net/u/vker][Coding]]
 
+[[https://github.com/myvker][Github]]
