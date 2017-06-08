@@ -36,3 +36,45 @@ $ sudo yum install docker-ce
 $ sudo systemctl start docker
 $ sudo docker run hello-world
 #+end_src
+* Docker特点
+1.更快速的交付和部署
+
+2.更高效的虚拟化
+
+3.更轻松的迁移和扩展
+
+4.更简单的管理
+** 虚拟化技术比较
+容器相比虚拟机更轻量
+
+*** 虚拟机
+
+file:./img/docker/VM.png
+
+*** 容器
+
+file:./img/docker/Containe.png
+
+* 重要概念
+** 镜像
+分层构建，保留历史，构建每层结束的时候，不需要的清除，不包括动态数据。不是整体打包的内容，而是一层层组成的。
+** 仓库
+*** 公有仓库
+最大的公开仓库是Docker Hub
+
+国内Docker Hub仓库镜像服务器，同时也可以上传自己的镜像
+
+网易[[https://c.163.com/hub#/m/library/][https://c.163.com/hub#/m/library/]]
+
+阿里[[https://dev.aliyun.com/search.html][https://dev.aliyun.com/search.html]]
+*** 私有仓库
+自己搭建
+** 容器
+从镜像创建的运行实例，启动、开始、停止、删除，相当于一个完整的linux操作系统，相互隔离、保证安全，运行应用。镜像是只读的，容器在启动的时候创建一层可写层作为最上层。
+可以从一个镜像创建多个隔离的互不干扰的容器。
+* 镜像基本操作
+** Dockerfile
+* 容器基本操作
+* 仓库基本操作
+* 数据管理
+* 网络管理
