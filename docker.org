@@ -64,7 +64,7 @@ file:./img/docker/Containe.png
 
 国内Docker Hub仓库镜像服务器，同时也可以上传自己的镜像
 
-网易[[https://c.163.com/hub#/m/library/][https://c.163.com/hub#/m/library/]]
+网易[[https://c.163.com/hub/][https://c.163.com/hub/]]
 
 阿里[[https://dev.aliyun.com/search.html][https://dev.aliyun.com/search.html]]
 *** 私有仓库
@@ -74,6 +74,28 @@ file:./img/docker/Containe.png
 可以从一个镜像创建多个隔离的互不干扰的容器。
 * 镜像基本操作
 ** Dockerfile
+#+begin_src sh
+# Comment
+INSTRUCTION arguments
+
+FROM
+RUN
+CMD
+LABEL
+EXPOSE
+ENV
+ADD
+COPY
+ENTRYPOINT
+VOLUME
+USER
+WORKDIR
+ARG
+ONBUILD
+STOPSIGNAL
+HEALTHCHECK
+SHELL
+#+end_src
 * 容器基本操作
 * 仓库基本操作
 * 数据管理
