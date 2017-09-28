@@ -55,31 +55,71 @@ file:./img/docker/VM.png
 
 file:./img/docker/Containe.png
 
-* 重要概念
+* Docker结构和组成
 ** 结构
-*** C/S
+
 file:./img/docker/architecture.svg
 
 客户端服务端模式可单机可分布式部署
-服务端负责docker镜像的构建，运行，发布
-** 镜像
-分层构建，保留历史，构建每层结束的时候，不需要的清除，不包括动态数据。不是整体打包的内容，而是一层层组成的。
-** 仓库
-*** 公有仓库
-最大的公开仓库是Docker Hub
 
-国内Docker Hub仓库镜像服务器，同时也可以上传自己的镜像
+服务端负责docker镜像的构建，运行，发布.
 
-网易[[https://c.163.com/hub/][https://c.163.com/hub/]]
+*** The Docker daemon
 
-阿里[[https://dev.aliyun.com/search.html][https://dev.aliyun.com/search.html]]
-*** 私有仓库
-自己搭建
+接收Docker API请求和管理docker的对象例如镜像、容器、网络、存储卷等，
+
+也可以和其他的Docker daemon通信管理docker的service
+
+*** The Docker client
+
+可以和多个daemon进行通信，发送指令给daemon, 用户和daemon交互主要方式。
+
+*** Docker registries
+
+存储docker镜像,Docker Cloud是一个公共仓库,是docker默认的仓库。
+
+可以搭建私有仓库。
+
+docker Cloud有docker可信仓库。
+
+拉取，推送镜像到设定仓库。
+
+Docker store允许用户购买和出售自己的镜像，也可以免费发布自己的镜像。
+
+*** Docker objects
+
+在使用docker的时候，将会涉及到创建、使用镜像、容器、网络、卷、插件或者其他的对象。
+
 ** 容器
-从镜像创建的运行实例，启动、开始、停止、删除，相当于一个完整的linux操作系统，相互隔离、保证安全，运行应用。镜像是只读的，容器在启动的时候创建一层可写层作为最上层。
+
+从镜像创建的运行实例，启动、开始、停止、删除，相当于一个完整的linux操作系统，相互隔离、保证安全，运行应用。
+
+可以将一个容器接入多个网络，可以挂载存储，可以基于当前状态容器创建镜像。
+
+镜像是只读的，容器在启动的时候创建一层可写层作为最上层。
+
 可以从一个镜像创建多个隔离的互不干扰的容器。
-* 镜像基本操作
-** Dockerfile
+
+分配一个读写区作为最后一层。
+
+网络默认直接使用NAT转换。
+
+** 镜像
+
+一般基于其他镜像，并添加自定义部分，分层构建，保留历史，构建每层结束的时候，不需要的清除，不包括动态数据。
+
+不是整体打包的内容，而是一层层组成的。用来创建容器的只读模板。
+
+演示
+
+自己可以创建镜像和发布镜像，或者使用第三方发布到仓库的镜像，
+
+自己创造镜像需要使用规定的语法编写Dockerfile文件然后执行构建，每个执行命令都会创建一层。
+
+如果修改了Dockerfile并重新构建镜像，只有被修改的层才会被重新构建，这样构建很快，轻量，小型。
+
+Dockerfile
+
 #+begin_src sh
 # Comment
 INSTRUCTION arguments
@@ -102,7 +142,69 @@ STOPSIGNAL
 HEALTHCHECK
 SHELL
 #+end_src
-* 容器基本操作
-* 仓库基本操作
+
+演示构建简单镜像并留作业
+
+*** 重点镜像
+
+scratch:一个空镜像，特别是用于“从头开始”构建镜像。
+
+busybox:小镜像，适合静态编译的不依赖操作系统环境的二进制程序，演示golang编译web程序并运行在busybox下。
+
+#+begin_src golang
+package main
+import (
+    "fmt"
+    "net/http"
+    "log"
+    "time"
+    "os"
+)
+func hello(w http.ResponseWriter, r *http.Request) {
+    host, err := os.Hostname()
+    if err != nil {
+        fmt.Printf("%s", err)
+    } else {
+    fmt.Fprintf(w, time.Now().Format("2006-01-02 15:04:05 -0700"))
+    fmt.Fprintf(w,"\n")
+    fmt.Fprintf(w, host)
+    }
+    fmt.Println()
+}
+func main() {
+    http.HandleFunc("/", hello) //设置访问的路由
+    err := http.ListenAndServe("0.0.0.0:8080", nil) //设置监听的端口
+    if err != nil {
+        log.Fatal("ListenAndServe: ", err)
+    }
+}
+#+end_src
+
+busybox:uclibc (微 嵌入)  busybox:glibc (GNU)  busybox:musl(嵌入)
+
+alpine:5M左右，带有软件安装功能的小镜像，很适合做为基础镜像。
+
+练习alpine环境下运行golang web程序
+
+** 仓库
+
+*** 公有仓库
+
+最大的公开仓库是Docker Hub
+
+演示提交镜像到Docker Hub
+
+国内Docker Hub仓库镜像服务器，同时也可以上传自己的镜像
+
+阿里[[https://dev.aliyun.com/search.html][https://dev.aliyun.com/search.html]]
+
+*** 私有仓库
+
+自己搭建
+
+** SERVICES
+
+swarm
+
 * 数据管理
 * 网络管理
