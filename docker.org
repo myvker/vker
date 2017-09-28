@@ -56,6 +56,12 @@ file:./img/docker/VM.png
 file:./img/docker/Containe.png
 
 * 重要概念
+** 结构
+*** C/S
+file:./img/docker/architecture.svg
+
+客户端服务端模式可单机可分布式部署
+服务端负责docker镜像的构建，运行，发布
 ** 镜像
 分层构建，保留历史，构建每层结束的时候，不需要的清除，不包括动态数据。不是整体打包的内容，而是一层层组成的。
 ** 仓库
