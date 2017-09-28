@@ -184,6 +184,8 @@ busybox:uclibc (微 嵌入)  busybox:glibc (GNU)  busybox:musl(嵌入)
 
 alpine:5M左右，带有软件安装功能的小镜像，很适合做为基础镜像。
 
+clearlinux:针对intel架构优化，面向云端的linux系统。
+
 练习alpine环境下运行golang web程序
 
 ** 仓库
