@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>一步步精通Docker容器实战</title>
-<!-- 2017-09-28 周四 22:51 -->
+<!-- 2017-09-29 周五 16:58 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
@@ -167,7 +167,7 @@ for the JavaScript code in this tag.
 </li>
 <li><a href="#sec-5">5. Docker结构和组成</a>
 <ul>
-<li><a href="#sec-5-1">5.1. 结构</a>
+<li><a href="#sec-5-1">5.1. 结构和组成</a>
 <ul>
 <li><a href="#sec-5-1-1">5.1.1. The Docker daemon</a></li>
 <li><a href="#sec-5-1-2">5.1.2. The Docker client</a></li>
@@ -175,22 +175,28 @@ for the JavaScript code in this tag.
 <li><a href="#sec-5-1-4">5.1.4. Docker objects</a></li>
 </ul>
 </li>
-<li><a href="#sec-5-2">5.2. 容器</a></li>
+<li><a href="#sec-5-2">5.2. 指令</a></li>
 <li><a href="#sec-5-3">5.3. 镜像</a>
 <ul>
 <li><a href="#sec-5-3-1">5.3.1. 重点镜像</a></li>
 </ul>
 </li>
-<li><a href="#sec-5-4">5.4. 仓库</a>
+<li><a href="#sec-5-4">5.4. 容器</a></li>
+<li><a href="#sec-5-5">5.5. 仓库</a>
 <ul>
-<li><a href="#sec-5-4-1">5.4.1. 公有仓库</a></li>
-<li><a href="#sec-5-4-2">5.4.2. 私有仓库</a></li>
+<li><a href="#sec-5-5-1">5.5.1. 公有仓库</a></li>
+<li><a href="#sec-5-5-2">5.5.2. 私有仓库</a></li>
 </ul>
 </li>
-<li><a href="#sec-5-5">5.5. SERVICES</a></li>
+<li><a href="#sec-5-6">5.6. SERVICES</a></li>
 </ul>
 </li>
-<li><a href="#sec-6">6. 数据管理</a></li>
+<li><a href="#sec-6">6. 数据管理</a>
+<ul>
+<li><a href="#sec-6-1">6.1. 镜像文件系统</a></li>
+<li><a href="#sec-6-2">6.2. 挂载</a></li>
+</ul>
+</li>
 <li><a href="#sec-7">7. 网络管理</a></li>
 </ul>
 </div>
@@ -269,6 +275,18 @@ $ sudo docker run hello-world
 <div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4"><span class="section-number-2">4</span> Docker特点</h2>
 <div class="outline-text-2" id="text-4">
+
+<div class="figure">
+<p><img src="./img/docker/docker_SaaS.png" alt="docker_SaaS.png" />
+</p>
+</div>
+
+
+<div class="figure">
+<p><img src="./img/docker/SaaS.jpg" alt="SaaS.jpg" />
+</p>
+</div>
+
 <p>
 1.更快速的交付和部署
 </p>
@@ -321,11 +339,17 @@ $ sudo docker run hello-world
 <h2 id="sec-5"><span class="section-number-2">5</span> Docker结构和组成</h2>
 <div class="outline-text-2" id="text-5">
 </div><div id="outline-container-sec-5-1" class="outline-3">
-<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 结构</h3>
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 结构和组成</h3>
 <div class="outline-text-3" id="text-5-1">
 
 <div class="figure">
 <p><img src="./img/docker/architecture.svg" alt="architecture.svg" />
+</p>
+</div>
+
+
+<div class="figure">
+<p><img src="./img/docker/client_daemon_hub.png" alt="client_daemon_hub.png" />
 </p>
 </div>
 
@@ -396,31 +420,186 @@ Docker store允许用户购买和出售自己的镜像，也可以免费发布�
 </div>
 
 <div id="outline-container-sec-5-2" class="outline-3">
-<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 容器</h3>
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 指令</h3>
 <div class="outline-text-3" id="text-5-2">
-<p>
-从镜像创建的运行实例，启动、开始、停止、删除，相当于一个完整的linux操作系统，相互隔离、保证安全，运行应用。
-</p>
+<div class="org-src-container">
 
-<p>
-可以将一个容器接入多个网络，可以挂载存储，可以基于当前状态容器创建镜像。
-</p>
+<pre class="src src-sh">Management Commands:
+  container   Manage containers
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  volume      Manage volumes
 
-<p>
-镜像是只读的，容器在启动的时候创建一层可写层作为最上层。
-</p>
+Commands:
+  attach      Attach to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+</pre>
+</div>
 
-<p>
-可以从一个镜像创建多个隔离的互不干扰的容器。
-</p>
+<div class="org-src-container">
 
-<p>
-分配一个读写区作为最后一层。
-</p>
+<pre class="src src-sh">[root@localhost user]# docker info
+Containers: 0
+ Running: 0
+ Paused: 0
+ Stopped: 0
+Images: 2
+Server Version: 17.03.1-ce
+Storage Driver: overlay
+ Backing Filesystem: xfs
+ Supports d_type: false
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins: 
+ Volume: local
+ Network: bridge host macvlan null overlay
+Swarm: inactive
+Runtimes: runc
+Default Runtime: runc
+Init Binary: docker-init
+containerd version: 4ab9917febca54791c5f071a9d1f404867857fcc
+runc version: 54296cf40ad8143b62dbcaa1d90e520a2136ddfe
+init version: 949e6fa
+Security Options:
+ seccomp
+  Profile: default
+Kernel Version: 3.10.0-327.el7.x86_64
+Operating System: CentOS Linux 7 (Core)
+OSType: linux
+Architecture: x86_64
+CPUs: 2
+Total Memory: 3.688 GiB
+Name: localhost.localdomain
+ID: SA42:IFVV:F4SK:QLB6:PDW2:3QBQ:SRUF:ZZMN:TE4T:62XY:OFXB:I43I
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): false
+Username: bvok
+Registry: https://index.docker.io/v1/
+WARNING: bridge-nf-call-iptables is disabled
+WARNING: bridge-nf-call-ip6tables is disabled
+Experimental: false
+Insecure Registries:
+ 127.0.0.0/8
+Live Restore Enabled: false
+[root@localhost user]#
+</pre>
+</div>
 
-<p>
-网络默认直接使用NAT转换。
-</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">[root@localhost lib]# pwd
+/var/lib
+[root@localhost lib]# tree docker -L 4
+docker
+├── containers
+├── image
+│   └── overlay
+│       ├── distribution
+│       │   ├── diffid-by-digest
+│       │   └── v2metadata-by-diffid
+│       ├── imagedb
+│       │   ├── content
+│       │   └── metadata
+│       ├── layerdb
+│       │   ├── mounts
+│       │   ├── sha256
+│       │   └── tmp
+│       └── repositories.json
+├── network
+│   └── files
+│       └── local-kv.db
+├── overlay
+│   ├── 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
+│   │   └── root
+│   │       ├── bin
+│   │       ├── dev
+│   │       ├── etc
+│   │       ├── home
+│   │       ├── root
+│   │       ├── tmp
+│   │       ├── usr
+│   │       └── var
+│   ├── b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
+│   │   └── root
+│   │       ├── bin
+│   │       ├── dev
+│   │       ├── etc
+│   │       ├── home
+│   │       ├── root
+│   │       ├── tmp
+│   │       ├── usr
+│   │       └── var
+│   └── b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
+│       └── root
+│           ├── bin
+│           ├── dev
+│           ├── etc
+│           ├── home
+│           ├── root
+│           ├── tmp
+│           ├── usr
+│           └── var
+├── plugins
+│   ├── storage
+│   │   └── blobs
+│   │       └── tmp
+│   └── tmp
+├── swarm
+├── tmp
+├── trust
+└── volumes
+    └── metadata.db
+
+55 directories, 3 files
+[root@localhost lib]#
+</pre>
+</div>
 </div>
 </div>
 
@@ -432,8 +611,178 @@ Docker store允许用户购买和出售自己的镜像，也可以免费发布�
 </p>
 
 <p>
-不是整体打包的内容，而是一层层组成的。用来创建容器的只读模板。
+不是整体打包的内容，而是一层层组成的。可以理解为用来创建容器的只读模板。
 </p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">[root@localhost docker]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+vker/websv          0.1                 57ce173fc558        2 days ago          7.22 MB
+busybox             latest              54511612f1c4        2 weeks ago         1.13 MB
+[root@localhost docker]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
+08135140ff81        vker/websv:0.1      "sh"                39 seconds ago      Exited (0) 12 seconds ago                       websv1
+[root@localhost docker]# tree -L 4
+.
+├── containers
+│   └── 08135140ff81906761e2d9ca3c73b96169f9ca7a08455b19e14afa9d43bc9a1b
+│       ├── 08135140ff81906761e2d9ca3c73b96169f9ca7a08455b19e14afa9d43bc9a1b-json.log
+│       ├── checkpoints
+│       ├── config.v2.json
+│       ├── hostconfig.json
+│       ├── hostname
+│       ├── hosts
+│       ├── resolv.conf
+│       ├── resolv.conf.hash
+│       └── shm
+├── image
+│   └── overlay
+│       ├── distribution
+│       │   ├── diffid-by-digest
+│       │   └── v2metadata-by-diffid
+│       ├── imagedb
+│       │   ├── content
+│       │   └── metadata
+│       ├── layerdb
+│       │   ├── mounts
+│       │   ├── sha256
+│       │   └── tmp
+│       └── repositories.json
+├── network
+│   └── files
+│       └── local-kv.db
+├── overlay
+│   ├── 63eb9f9fd4b84dec23cfa717e805fc09c6e54398bbad873663f241c4c6cb6ef8
+│   │   ├── lower-id
+│   │   ├── merged
+│   │   ├── upper
+│   │   │   ├── dev
+│   │   │   ├── etc
+│   │   │   ├── proc
+│   │   │   ├── root
+│   │   │   └── sys
+│   │   └── work
+│   │       └── work
+│   ├── 63eb9f9fd4b84dec23cfa717e805fc09c6e54398bbad873663f241c4c6cb6ef8-init
+│   │   ├── lower-id
+│   │   ├── merged
+│   │   ├── upper
+│   │   │   ├── dev
+│   │   │   ├── etc
+│   │   │   ├── proc
+│   │   │   └── sys
+│   │   └── work
+│   │       └── work
+│   ├── 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
+│   │   └── root
+│   │       ├── bin
+│   │       ├── dev
+│   │       ├── etc
+│   │       ├── home
+│   │       ├── root
+│   │       ├── tmp
+│   │       ├── usr
+│   │       └── var
+│   ├── b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
+│   │   └── root
+│   │       ├── bin
+│   │       ├── dev
+│   │       ├── etc
+│   │       ├── home
+│   │       ├── root
+│   │       ├── tmp
+│   │       ├── usr
+│   │       └── var
+│   └── b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
+│       └── root
+│           ├── bin
+│           ├── dev
+│           ├── etc
+│           ├── home
+│           ├── root
+│           ├── tmp
+│           ├── usr
+│           └── var
+├── plugins
+│   ├── storage
+│   │   └── blobs
+│   │       └── tmp
+│   └── tmp
+├── swarm
+├── tmp
+├── trust
+└── volumes
+    └── metadata.db
+
+77 directories, 12 files
+[root@localhost docker]#
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">[root@localhost overlay]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+vker/websv          0.1                 57ce173fc558        2 days ago          7.22 MB
+busybox             latest              54511612f1c4        2 weeks ago         1.13 MB
+[root@localhost overlay]# pwd
+/var/lib/docker/image/overlay
+[root@localhost overlay]# tree -L 4
+.
+├── distribution
+│   ├── diffid-by-digest
+│   │   └── sha256
+│   │       ├── 03b1be98f3f9b05cb57782a3a71a44aaf6ec695de5f4f8e6c1058cd42f04953e
+│   │       ├── 124dbfa57fb916d80412555ce25fc6e4e8c59673e1ac70aebfbfd296a180e9a1
+│   │       ├── 78445dd45222097f5f8d5a16e48dc19c4ca162dcdb80010ab6f1ccfc7e2c0fa3
+│   │       ├── 88286f41530e93dffd4b964e1db22ce4939fffa4a4c665dab8591fbab03d4926
+│   │       ├── c461a0019f4e60f8882d3dae13bd498981e67f98c69243afdd85eaa918e4e81e
+│   │       ├── cc5efb633992297e24c98d4868207fe0f293af7545cba299a1487a739e6d4bc9
+│   │       └── d9aaf4d82f249dc101a6638ff5177fe926cdebfa6c42d874dfa5029533da0e72
+│   └── v2metadata-by-diffid
+│       └── sha256
+│           ├── 0f827ff0252612d437be4d0d4bdcf0aea1eeb9e4c93d9cb312e5e0271ce27bda
+│           ├── 51951fc332ebc1d1edb4efe5292c24cd87e5bcec01b4c37c56149a015f7b1cf9
+│           ├── 5bef08742407efd622d243692b79ba0055383bbce12900324f75e56f589aedb0
+│           ├── 6a749002dd6a65988a6696ca4d0c4cbe87145df74e3bf6feae4025ab28f420f2
+│           ├── 98c944e98de8d35097100ff70a31083ec57704be0991a92c51700465e4544d08
+│           ├── b9f815eade613c4dc81fa8fc72bb69b66b87340ea6b6ccb37ff73cbe7895e559
+│           └── cf516324493c00941ac20020801553e87ed24c564fb3f269409ad138945948d4
+├── imagedb
+│   ├── content
+│   │   └── sha256
+│   │       ├── 54511612f1c4d97e93430fc3d5dc2f05dfbe8fb7e6259b7351deeca95eaf2971
+│   │       └── 57ce173fc558d53bc42920d1456f044edc0ab595ed3bc617ac018453e9d17c90
+│   └── metadata
+│       └── sha256
+├── layerdb
+│   ├── mounts
+│   ├── sha256
+│   │   ├── 08c03e97470ced05a63326816eef5b07cf0271212b7c6935ac106c618b43917d
+│   │   │   ├── cache-id
+│   │   │   ├── diff
+│   │   │   ├── parent
+│   │   │   ├── size
+│   │   │   └── tar-split.json.gz
+│   │   ├── 6a749002dd6a65988a6696ca4d0c4cbe87145df74e3bf6feae4025ab28f420f2
+│   │   │   ├── cache-id
+│   │   │   ├── diff
+│   │   │   ├── size
+│   │   │   └── tar-split.json.gz
+│   │   └── f54b4b3e09a58c133535e04231ef66b82622c824f9494d7c182de59bb8ae5b8d
+│   │       ├── cache-id
+│   │       ├── diff
+│   │       ├── parent
+│   │       ├── size
+│   │       └── tar-split.json.gz
+│   └── tmp
+└── repositories.json
+
+17 directories, 31 files
+[root@localhost overlay]#
+</pre>
+</div>
 
 <p>
 演示
@@ -546,12 +895,327 @@ clearlinux:针对intel架构优化，面向云端的linux系统。
 </div>
 </div>
 
+
 <div id="outline-container-sec-5-4" class="outline-3">
-<h3 id="sec-5-4"><span class="section-number-3">5.4</span> 仓库</h3>
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> 容器</h3>
 <div class="outline-text-3" id="text-5-4">
-</div><div id="outline-container-sec-5-4-1" class="outline-4">
-<h4 id="sec-5-4-1"><span class="section-number-4">5.4.1</span> 公有仓库</h4>
-<div class="outline-text-4" id="text-5-4-1">
+<p>
+从镜像创建的运行实例，启动、开始、停止、删除，相当于一个完整的linux操作系统，相互隔离、保证安全，运行应用。
+</p>
+
+<p>
+可以将一个容器接入多个网络，可以挂载存储，可以基于当前状态容器创建镜像。
+</p>
+
+
+<p>
+容器运行-&gt;停止-&gt;删除 路径变化
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">[root@localhost docker]# tree -L 4
+.
+├── containers
+│   └── 08135140ff81906761e2d9ca3c73b96169f9ca7a08455b19e14afa9d43bc9a1b
+│       ├── 08135140ff81906761e2d9ca3c73b96169f9ca7a08455b19e14afa9d43bc9a1b-json.log
+│       ├── checkpoints
+│       ├── config.v2.json
+│       ├── hostconfig.json
+│       ├── hostname
+│       ├── hosts
+│       ├── resolv.conf
+│       ├── resolv.conf.hash
+│       └── shm
+├── image
+│   └── overlay
+│       ├── distribution
+│       │   ├── diffid-by-digest
+│       │   └── v2metadata-by-diffid
+│       ├── imagedb
+│       │   ├── content
+│       │   └── metadata
+│       ├── layerdb
+│       │   ├── mounts
+│       │   ├── sha256
+│       │   └── tmp
+│       └── repositories.json
+├── network
+│   └── files
+│       └── local-kv.db
+├── overlay
+│   ├── 63eb9f9fd4b84dec23cfa717e805fc09c6e54398bbad873663f241c4c6cb6ef8
+│   │   ├── lower-id
+│   │   ├── merged
+│   │   │   ├── bin
+│   │   │   ├── dev
+│   │   │   ├── etc
+│   │   │   ├── home
+│   │   │   ├── proc
+│   │   │   ├── root
+│   │   │   ├── sys
+│   │   │   ├── tmp
+│   │   │   ├── usr
+│   │   │   └── var
+│   │   ├── upper
+│   │   │   ├── dev
+│   │   │   ├── etc
+│   │   │   ├── proc
+│   │   │   ├── root
+│   │   │   └── sys
+│   │   └── work
+│   │       └── work
+│   ├── 63eb9f9fd4b84dec23cfa717e805fc09c6e54398bbad873663f241c4c6cb6ef8-init
+│   │   ├── lower-id
+│   │   ├── merged
+│   │   ├── upper
+│   │   │   ├── dev
+│   │   │   ├── etc
+│   │   │   ├── proc
+│   │   │   └── sys
+│   │   └── work
+│   │       └── work
+│   ├── 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
+│   │   └── root
+│   │       ├── bin
+│   │       ├── dev
+│   │       ├── etc
+│   │       ├── home
+│   │       ├── root
+│   │       ├── tmp
+│   │       ├── usr
+│   │       └── var
+│   ├── b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
+│   │   └── root
+│   │       ├── bin
+│   │       ├── dev
+│   │       ├── etc
+│   │       ├── home
+│   │       ├── root
+│   │       ├── tmp
+│   │       ├── usr
+│   │       └── var
+│   └── b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
+│       └── root
+│           ├── bin
+│           ├── dev
+│           ├── etc
+│           ├── home
+│           ├── root
+│           ├── tmp
+│           ├── usr
+│           └── var
+├── plugins
+│   ├── storage
+│   │   └── blobs
+│   │       └── tmp
+│   └── tmp
+├── swarm
+├── tmp
+├── trust
+└── volumes
+    └── metadata.db
+
+87 directories, 12 files
+[root@localhost docker]# ls
+containers  image  network  overlay  plugins  swarm  tmp  trust  volumes
+[root@localhost docker]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
+08135140ff81        vker/websv:0.1      "sh"                34 minutes ago      Up 28 minutes       0.0.0.0:8080-&gt;8080/tcp   websv1
+[root@localhost docker]# docker stop 08
+
+08
+[root@localhost docker]# 
+[root@localhost docker]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                       PORTS               NAMES
+08135140ff81        vker/websv:0.1      "sh"                34 minutes ago      Exited (137) 7 seconds ago                       websv1
+[root@localhost docker]# tree -L 4
+.
+├── containers
+│   └── 08135140ff81906761e2d9ca3c73b96169f9ca7a08455b19e14afa9d43bc9a1b
+│       ├── 08135140ff81906761e2d9ca3c73b96169f9ca7a08455b19e14afa9d43bc9a1b-json.log
+│       ├── checkpoints
+│       ├── config.v2.json
+│       ├── hostconfig.json
+│       ├── hostname
+│       ├── hosts
+│       ├── resolv.conf
+│       ├── resolv.conf.hash
+│       └── shm
+├── image
+│   └── overlay
+│       ├── distribution
+│       │   ├── diffid-by-digest
+│       │   └── v2metadata-by-diffid
+│       ├── imagedb
+│       │   ├── content
+│       │   └── metadata
+│       ├── layerdb
+│       │   ├── mounts
+│       │   ├── sha256
+│       │   └── tmp
+│       └── repositories.json
+├── network
+│   └── files
+│       └── local-kv.db
+├── overlay
+│   ├── 63eb9f9fd4b84dec23cfa717e805fc09c6e54398bbad873663f241c4c6cb6ef8
+│   │   ├── lower-id
+│   │   ├── merged
+│   │   ├── upper
+│   │   │   ├── dev
+│   │   │   ├── etc
+│   │   │   ├── proc
+│   │   │   ├── root
+│   │   │   └── sys
+│   │   └── work
+│   │       └── work
+│   ├── 63eb9f9fd4b84dec23cfa717e805fc09c6e54398bbad873663f241c4c6cb6ef8-init
+│   │   ├── lower-id
+│   │   ├── merged
+│   │   ├── upper
+│   │   │   ├── dev
+│   │   │   ├── etc
+│   │   │   ├── proc
+│   │   │   └── sys
+│   │   └── work
+│   │       └── work
+│   ├── 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
+│   │   └── root
+│   │       ├── bin
+│   │       ├── dev
+│   │       ├── etc
+│   │       ├── home
+│   │       ├── root
+│   │       ├── tmp
+│   │       ├── usr
+│   │       └── var
+│   ├── b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
+│   │   └── root
+│   │       ├── bin
+│   │       ├── dev
+│   │       ├── etc
+│   │       ├── home
+│   │       ├── root
+│   │       ├── tmp
+│   │       ├── usr
+│   │       └── var
+│   └── b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
+│       └── root
+│           ├── bin
+│           ├── dev
+│           ├── etc
+│           ├── home
+│           ├── root
+│           ├── tmp
+│           ├── usr
+│           └── var
+├── plugins
+│   ├── storage
+│   │   └── blobs
+│   │       └── tmp
+│   └── tmp
+├── swarm
+├── tmp
+├── trust
+└── volumes
+    └── metadata.db
+
+77 directories, 12 files
+[root@localhost docker]# docker rm 08
+08
+[root@localhost docker]# tree -L 4
+.
+├── containers
+├── image
+│   └── overlay
+│       ├── distribution
+│       │   ├── diffid-by-digest
+│       │   └── v2metadata-by-diffid
+│       ├── imagedb
+│       │   ├── content
+│       │   └── metadata
+│       ├── layerdb
+│       │   ├── mounts
+│       │   ├── sha256
+│       │   └── tmp
+│       └── repositories.json
+├── network
+│   └── files
+│       └── local-kv.db
+├── overlay
+│   ├── 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
+│   │   └── root
+│   │       ├── bin
+│   │       ├── dev
+│   │       ├── etc
+│   │       ├── home
+│   │       ├── root
+│   │       ├── tmp
+│   │       ├── usr
+│   │       └── var
+│   ├── b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
+│   │   └── root
+│   │       ├── bin
+│   │       ├── dev
+│   │       ├── etc
+│   │       ├── home
+│   │       ├── root
+│   │       ├── tmp
+│   │       ├── usr
+│   │       └── var
+│   └── b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
+│       └── root
+│           ├── bin
+│           ├── dev
+│           ├── etc
+│           ├── home
+│           ├── root
+│           ├── tmp
+│           ├── usr
+│           └── var
+├── plugins
+│   ├── storage
+│   │   └── blobs
+│   │       └── tmp
+│   └── tmp
+├── swarm
+├── tmp
+├── trust
+└── volumes
+    └── metadata.db
+
+55 directories, 3 files
+[root@localhost docker]#
+</pre>
+</div>
+
+
+<p>
+镜像是只读的，容器在启动的时候创建一层可写层作为最上层。
+</p>
+
+<p>
+可以从一个镜像创建多个隔离的互不干扰的容器。
+</p>
+
+<p>
+分配一个读写区作为最后一层。
+</p>
+
+<p>
+网络默认直接使用NAT转换。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> 仓库</h3>
+<div class="outline-text-3" id="text-5-5">
+</div><div id="outline-container-sec-5-5-1" class="outline-4">
+<h4 id="sec-5-5-1"><span class="section-number-4">5.5.1</span> 公有仓库</h4>
+<div class="outline-text-4" id="text-5-5-1">
 <p>
 最大的公开仓库是Docker Hub
 </p>
@@ -570,9 +1234,9 @@ clearlinux:针对intel架构优化，面向云端的linux系统。
 </div>
 </div>
 
-<div id="outline-container-sec-5-4-2" class="outline-4">
-<h4 id="sec-5-4-2"><span class="section-number-4">5.4.2</span> 私有仓库</h4>
-<div class="outline-text-4" id="text-5-4-2">
+<div id="outline-container-sec-5-5-2" class="outline-4">
+<h4 id="sec-5-5-2"><span class="section-number-4">5.5.2</span> 私有仓库</h4>
+<div class="outline-text-4" id="text-5-5-2">
 <p>
 自己搭建
 </p>
@@ -580,9 +1244,9 @@ clearlinux:针对intel架构优化，面向云端的linux系统。
 </div>
 </div>
 
-<div id="outline-container-sec-5-5" class="outline-3">
-<h3 id="sec-5-5"><span class="section-number-3">5.5</span> SERVICES</h3>
-<div class="outline-text-3" id="text-5-5">
+<div id="outline-container-sec-5-6" class="outline-3">
+<h3 id="sec-5-6"><span class="section-number-3">5.6</span> SERVICES</h3>
+<div class="outline-text-3" id="text-5-6">
 <p>
 swarm
 </p>
@@ -592,13 +1256,21 @@ swarm
 
 <div id="outline-container-sec-6" class="outline-2">
 <h2 id="sec-6"><span class="section-number-2">6</span> 数据管理</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> 镜像文件系统</h3>
 </div>
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> 挂载</h3>
+</div>
+</div>
+
 <div id="outline-container-sec-7" class="outline-2">
 <h2 id="sec-7"><span class="section-number-2">7</span> 网络管理</h2>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2017-09-28 周四 22:51</p>
+<p class="date">Created: 2017-09-29 周五 16:58</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
