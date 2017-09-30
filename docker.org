@@ -295,98 +295,7 @@ busybox             latest              54511612f1c4        2 weeks ago         
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
 08135140ff81        vker/websv:0.1      "sh"                39 seconds ago      Exited (0) 12 seconds ago                       websv1
 [root@localhost docker]# tree -L 4
-.
-├── containers
-│   └── 08135140ff81906761e2d9ca3c73b96169f9ca7a08455b19e14afa9d43bc9a1b
-│       ├── 08135140ff81906761e2d9ca3c73b96169f9ca7a08455b19e14afa9d43bc9a1b-json.log
-│       ├── checkpoints
-│       ├── config.v2.json
-│       ├── hostconfig.json
-│       ├── hostname
-│       ├── hosts
-│       ├── resolv.conf
-│       ├── resolv.conf.hash
-│       └── shm
-├── image
-│   └── overlay
-│       ├── distribution
-│       │   ├── diffid-by-digest
-│       │   └── v2metadata-by-diffid
-│       ├── imagedb
-│       │   ├── content
-│       │   └── metadata
-│       ├── layerdb
-│       │   ├── mounts
-│       │   ├── sha256
-│       │   └── tmp
-│       └── repositories.json
-├── network
-│   └── files
-│       └── local-kv.db
-├── overlay
-│   ├── 63eb9f9fd4b84dec23cfa717e805fc09c6e54398bbad873663f241c4c6cb6ef8
-│   │   ├── lower-id
-│   │   ├── merged
-│   │   ├── upper
-│   │   │   ├── dev
-│   │   │   ├── etc
-│   │   │   ├── proc
-│   │   │   ├── root
-│   │   │   └── sys
-│   │   └── work
-│   │       └── work
-│   ├── 63eb9f9fd4b84dec23cfa717e805fc09c6e54398bbad873663f241c4c6cb6ef8-init
-│   │   ├── lower-id
-│   │   ├── merged
-│   │   ├── upper
-│   │   │   ├── dev
-│   │   │   ├── etc
-│   │   │   ├── proc
-│   │   │   └── sys
-│   │   └── work
-│   │       └── work
-│   ├── 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
-│   │   └── root
-│   │       ├── bin
-│   │       ├── dev
-│   │       ├── etc
-│   │       ├── home
-│   │       ├── root
-│   │       ├── tmp
-│   │       ├── usr
-│   │       └── var
-│   ├── b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
-│   │   └── root
-│   │       ├── bin
-│   │       ├── dev
-│   │       ├── etc
-│   │       ├── home
-│   │       ├── root
-│   │       ├── tmp
-│   │       ├── usr
-│   │       └── var
-│   └── b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
-│       └── root
-│           ├── bin
-│           ├── dev
-│           ├── etc
-│           ├── home
-│           ├── root
-│           ├── tmp
-│           ├── usr
-│           └── var
-├── plugins
-│   ├── storage
-│   │   └── blobs
-│   │       └── tmp
-│   └── tmp
-├── swarm
-├── tmp
-├── trust
-└── volumes
-    └── metadata.db
-
-77 directories, 12 files
+......
 [root@localhost docker]# 
 
 #+end_src
@@ -400,59 +309,8 @@ busybox             latest              54511612f1c4        2 weeks ago         
 [root@localhost overlay]# pwd
 /var/lib/docker/image/overlay
 [root@localhost overlay]# tree -L 4
-.
-├── distribution
-│   ├── diffid-by-digest
-│   │   └── sha256
-│   │       ├── 03b1be98f3f9b05cb57782a3a71a44aaf6ec695de5f4f8e6c1058cd42f04953e
-│   │       ├── 124dbfa57fb916d80412555ce25fc6e4e8c59673e1ac70aebfbfd296a180e9a1
-│   │       ├── 78445dd45222097f5f8d5a16e48dc19c4ca162dcdb80010ab6f1ccfc7e2c0fa3
-│   │       ├── 88286f41530e93dffd4b964e1db22ce4939fffa4a4c665dab8591fbab03d4926
-│   │       ├── c461a0019f4e60f8882d3dae13bd498981e67f98c69243afdd85eaa918e4e81e
-│   │       ├── cc5efb633992297e24c98d4868207fe0f293af7545cba299a1487a739e6d4bc9
-│   │       └── d9aaf4d82f249dc101a6638ff5177fe926cdebfa6c42d874dfa5029533da0e72
-│   └── v2metadata-by-diffid
-│       └── sha256
-│           ├── 0f827ff0252612d437be4d0d4bdcf0aea1eeb9e4c93d9cb312e5e0271ce27bda
-│           ├── 51951fc332ebc1d1edb4efe5292c24cd87e5bcec01b4c37c56149a015f7b1cf9
-│           ├── 5bef08742407efd622d243692b79ba0055383bbce12900324f75e56f589aedb0
-│           ├── 6a749002dd6a65988a6696ca4d0c4cbe87145df74e3bf6feae4025ab28f420f2
-│           ├── 98c944e98de8d35097100ff70a31083ec57704be0991a92c51700465e4544d08
-│           ├── b9f815eade613c4dc81fa8fc72bb69b66b87340ea6b6ccb37ff73cbe7895e559
-│           └── cf516324493c00941ac20020801553e87ed24c564fb3f269409ad138945948d4
-├── imagedb
-│   ├── content
-│   │   └── sha256
-│   │       ├── 54511612f1c4d97e93430fc3d5dc2f05dfbe8fb7e6259b7351deeca95eaf2971
-│   │       └── 57ce173fc558d53bc42920d1456f044edc0ab595ed3bc617ac018453e9d17c90
-│   └── metadata
-│       └── sha256
-├── layerdb
-│   ├── mounts
-│   ├── sha256
-│   │   ├── 08c03e97470ced05a63326816eef5b07cf0271212b7c6935ac106c618b43917d
-│   │   │   ├── cache-id
-│   │   │   ├── diff
-│   │   │   ├── parent
-│   │   │   ├── size
-│   │   │   └── tar-split.json.gz
-│   │   ├── 6a749002dd6a65988a6696ca4d0c4cbe87145df74e3bf6feae4025ab28f420f2
-│   │   │   ├── cache-id
-│   │   │   ├── diff
-│   │   │   ├── size
-│   │   │   └── tar-split.json.gz
-│   │   └── f54b4b3e09a58c133535e04231ef66b82622c824f9494d7c182de59bb8ae5b8d
-│   │       ├── cache-id
-│   │       ├── diff
-│   │       ├── parent
-│   │       ├── size
-│   │       └── tar-split.json.gz
-│   └── tmp
-└── repositories.json
-
-17 directories, 31 files
+......
 [root@localhost overlay]# 
-
 
 #+end_src
 
@@ -489,13 +347,8 @@ HEALTHCHECK
 SHELL
 #+end_src
 
-演示构建简单镜像并留作业
+golang web源码
 
-*** 重点镜像
-
-scratch:一个空镜像，特别是用于“从头开始”构建镜像。
-
-busybox:小镜像，适合静态编译的不依赖操作系统环境的二进制程序，演示golang编译web程序并运行在busybox下。
 
 #+begin_src golang
 package main
@@ -526,6 +379,54 @@ func main() {
 }
 #+end_src
 
+Dockerfile源码
+
+#+begin_src sh
+
+
+
+#+end_src
+
+构建
+
+#+begin_src sh
+
+[root@localhost app]# docker build -t vker/websvbase:0.1 .
+......
+[root@localhost app]# cat Dockerfile 
+......
+#+end_src
+
+#+begin_src sh
+
+[root@localhost app]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+vker/websvbase      0.1                 4b8ff495d4c5        11 minutes ago      6.09 MB
+vker/websv          0.1                 57ce173fc558        2 days ago          7.22 MB
+busybox             latest              54511612f1c4        2 weeks ago         1.13 MB
+[root@localhost app]# docker inspect 4b
+...... 
+
+#+end_src
+
+修改Dockerfile后再进行构建
+
+#+begin_src sh
+
+[root@localhost app]# docker build -t vker/websvbase:0.2 .
+......
+
+#+end_src
+
+
+演示构建简单镜像并留作业
+
+*** 重点镜像
+
+scratch:一个空镜像，特别是用于“从头开始”构建镜像。
+
+busybox:小镜像，适合静态编译的不依赖操作系统环境的二进制程序，演示golang编译web程序并运行在busybox下。
+
 busybox:uclibc (微 嵌入)  busybox:glibc (GNU)  busybox:musl(嵌入)
 
 alpine:5M左右，带有软件安装功能的小镜像，很适合做为基础镜像。
@@ -547,280 +448,24 @@ clearlinux:针对intel架构优化，面向云端的linux系统。
 #+begin_src sh
 
 [root@localhost docker]# tree -L 4
-.
-├── containers
-│   └── 08135140ff81906761e2d9ca3c73b96169f9ca7a08455b19e14afa9d43bc9a1b
-│       ├── 08135140ff81906761e2d9ca3c73b96169f9ca7a08455b19e14afa9d43bc9a1b-json.log
-│       ├── checkpoints
-│       ├── config.v2.json
-│       ├── hostconfig.json
-│       ├── hostname
-│       ├── hosts
-│       ├── resolv.conf
-│       ├── resolv.conf.hash
-│       └── shm
-├── image
-│   └── overlay
-│       ├── distribution
-│       │   ├── diffid-by-digest
-│       │   └── v2metadata-by-diffid
-│       ├── imagedb
-│       │   ├── content
-│       │   └── metadata
-│       ├── layerdb
-│       │   ├── mounts
-│       │   ├── sha256
-│       │   └── tmp
-│       └── repositories.json
-├── network
-│   └── files
-│       └── local-kv.db
-├── overlay
-│   ├── 63eb9f9fd4b84dec23cfa717e805fc09c6e54398bbad873663f241c4c6cb6ef8
-│   │   ├── lower-id
-│   │   ├── merged
-│   │   │   ├── bin
-│   │   │   ├── dev
-│   │   │   ├── etc
-│   │   │   ├── home
-│   │   │   ├── proc
-│   │   │   ├── root
-│   │   │   ├── sys
-│   │   │   ├── tmp
-│   │   │   ├── usr
-│   │   │   └── var
-│   │   ├── upper
-│   │   │   ├── dev
-│   │   │   ├── etc
-│   │   │   ├── proc
-│   │   │   ├── root
-│   │   │   └── sys
-│   │   └── work
-│   │       └── work
-│   ├── 63eb9f9fd4b84dec23cfa717e805fc09c6e54398bbad873663f241c4c6cb6ef8-init
-│   │   ├── lower-id
-│   │   ├── merged
-│   │   ├── upper
-│   │   │   ├── dev
-│   │   │   ├── etc
-│   │   │   ├── proc
-│   │   │   └── sys
-│   │   └── work
-│   │       └── work
-│   ├── 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
-│   │   └── root
-│   │       ├── bin
-│   │       ├── dev
-│   │       ├── etc
-│   │       ├── home
-│   │       ├── root
-│   │       ├── tmp
-│   │       ├── usr
-│   │       └── var
-│   ├── b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
-│   │   └── root
-│   │       ├── bin
-│   │       ├── dev
-│   │       ├── etc
-│   │       ├── home
-│   │       ├── root
-│   │       ├── tmp
-│   │       ├── usr
-│   │       └── var
-│   └── b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
-│       └── root
-│           ├── bin
-│           ├── dev
-│           ├── etc
-│           ├── home
-│           ├── root
-│           ├── tmp
-│           ├── usr
-│           └── var
-├── plugins
-│   ├── storage
-│   │   └── blobs
-│   │       └── tmp
-│   └── tmp
-├── swarm
-├── tmp
-├── trust
-└── volumes
-    └── metadata.db
-
-87 directories, 12 files
+......
 [root@localhost docker]# ls
 containers  image  network  overlay  plugins  swarm  tmp  trust  volumes
 [root@localhost docker]# docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
 08135140ff81        vker/websv:0.1      "sh"                34 minutes ago      Up 28 minutes       0.0.0.0:8080->8080/tcp   websv1
 [root@localhost docker]# docker stop 08
-
 08
 [root@localhost docker]# 
 [root@localhost docker]# docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                       PORTS               NAMES
 08135140ff81        vker/websv:0.1      "sh"                34 minutes ago      Exited (137) 7 seconds ago                       websv1
 [root@localhost docker]# tree -L 4
-.
-├── containers
-│   └── 08135140ff81906761e2d9ca3c73b96169f9ca7a08455b19e14afa9d43bc9a1b
-│       ├── 08135140ff81906761e2d9ca3c73b96169f9ca7a08455b19e14afa9d43bc9a1b-json.log
-│       ├── checkpoints
-│       ├── config.v2.json
-│       ├── hostconfig.json
-│       ├── hostname
-│       ├── hosts
-│       ├── resolv.conf
-│       ├── resolv.conf.hash
-│       └── shm
-├── image
-│   └── overlay
-│       ├── distribution
-│       │   ├── diffid-by-digest
-│       │   └── v2metadata-by-diffid
-│       ├── imagedb
-│       │   ├── content
-│       │   └── metadata
-│       ├── layerdb
-│       │   ├── mounts
-│       │   ├── sha256
-│       │   └── tmp
-│       └── repositories.json
-├── network
-│   └── files
-│       └── local-kv.db
-├── overlay
-│   ├── 63eb9f9fd4b84dec23cfa717e805fc09c6e54398bbad873663f241c4c6cb6ef8
-│   │   ├── lower-id
-│   │   ├── merged
-│   │   ├── upper
-│   │   │   ├── dev
-│   │   │   ├── etc
-│   │   │   ├── proc
-│   │   │   ├── root
-│   │   │   └── sys
-│   │   └── work
-│   │       └── work
-│   ├── 63eb9f9fd4b84dec23cfa717e805fc09c6e54398bbad873663f241c4c6cb6ef8-init
-│   │   ├── lower-id
-│   │   ├── merged
-│   │   ├── upper
-│   │   │   ├── dev
-│   │   │   ├── etc
-│   │   │   ├── proc
-│   │   │   └── sys
-│   │   └── work
-│   │       └── work
-│   ├── 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
-│   │   └── root
-│   │       ├── bin
-│   │       ├── dev
-│   │       ├── etc
-│   │       ├── home
-│   │       ├── root
-│   │       ├── tmp
-│   │       ├── usr
-│   │       └── var
-│   ├── b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
-│   │   └── root
-│   │       ├── bin
-│   │       ├── dev
-│   │       ├── etc
-│   │       ├── home
-│   │       ├── root
-│   │       ├── tmp
-│   │       ├── usr
-│   │       └── var
-│   └── b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
-│       └── root
-│           ├── bin
-│           ├── dev
-│           ├── etc
-│           ├── home
-│           ├── root
-│           ├── tmp
-│           ├── usr
-│           └── var
-├── plugins
-│   ├── storage
-│   │   └── blobs
-│   │       └── tmp
-│   └── tmp
-├── swarm
-├── tmp
-├── trust
-└── volumes
-    └── metadata.db
-
-77 directories, 12 files
+......
 [root@localhost docker]# docker rm 08
 08
 [root@localhost docker]# tree -L 4
-.
-├── containers
-├── image
-│   └── overlay
-│       ├── distribution
-│       │   ├── diffid-by-digest
-│       │   └── v2metadata-by-diffid
-│       ├── imagedb
-│       │   ├── content
-│       │   └── metadata
-│       ├── layerdb
-│       │   ├── mounts
-│       │   ├── sha256
-│       │   └── tmp
-│       └── repositories.json
-├── network
-│   └── files
-│       └── local-kv.db
-├── overlay
-│   ├── 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
-│   │   └── root
-│   │       ├── bin
-│   │       ├── dev
-│   │       ├── etc
-│   │       ├── home
-│   │       ├── root
-│   │       ├── tmp
-│   │       ├── usr
-│   │       └── var
-│   ├── b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
-│   │   └── root
-│   │       ├── bin
-│   │       ├── dev
-│   │       ├── etc
-│   │       ├── home
-│   │       ├── root
-│   │       ├── tmp
-│   │       ├── usr
-│   │       └── var
-│   └── b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
-│       └── root
-│           ├── bin
-│           ├── dev
-│           ├── etc
-│           ├── home
-│           ├── root
-│           ├── tmp
-│           ├── usr
-│           └── var
-├── plugins
-│   ├── storage
-│   │   └── blobs
-│   │       └── tmp
-│   └── tmp
-├── swarm
-├── tmp
-├── trust
-└── volumes
-    └── metadata.db
-
-55 directories, 3 files
-[root@localhost docker]# 
-
-
+......
 #+end_src
 
 
