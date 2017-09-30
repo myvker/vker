@@ -349,7 +349,6 @@ SHELL
 
 golang web源码
 
-
 #+begin_src golang
 package main
 import (
@@ -383,7 +382,29 @@ Dockerfile源码
 
 #+begin_src sh
 
+#在Dockerfile中，#开头的被认作是注释； 
+# Use an official alpine runtime as a parent image
+##FROM centos:latest
+FROM alpine:latest
+#FROM scratch
+# Set the working directory to /app
+WORKDIR /home/vker
 
+# Copy the current directory contents into the container at 
+ADD ./vker/ /home/vker
+
+# Run
+
+# RUN echo "run vker" >> ./server_log
+
+# Make port 8080 available to the world outside this container
+EXPOSE 8080
+
+# Define environment variable
+ENV NAME vker
+
+# Run hello when the container launches
+# CMD ["/hello"]
 
 #+end_src
 
@@ -435,13 +456,11 @@ clearlinux:针对intel架构优化，面向云端的linux系统。
 
 练习alpine环境下运行golang web程序
 
-
 ** 容器
 
 从镜像创建的运行实例，启动、开始、停止、删除，相当于一个完整的linux操作系统，相互隔离、保证安全，运行应用。
 
 可以将一个容器接入多个网络，可以挂载存储，可以基于当前状态容器创建镜像。
-
 
 容器运行->停止->删除 路径变化
 
