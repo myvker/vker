@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>一步步精通Docker容器实战</title>
-<!-- 2017-09-30 周六 11:29 -->
+<!-- 2017-10-09 周一 08:34 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
@@ -188,16 +188,8 @@ for the JavaScript code in this tag.
 <li><a href="#sec-5-5-2">5.5.2. 私有仓库</a></li>
 </ul>
 </li>
-<li><a href="#sec-5-6">5.6. SERVICES</a></li>
 </ul>
 </li>
-<li><a href="#sec-6">6. 数据管理</a>
-<ul>
-<li><a href="#sec-6-1">6.1. 镜像文件系统</a></li>
-<li><a href="#sec-6-2">6.2. 挂载</a></li>
-</ul>
-</li>
-<li><a href="#sec-7">7. 网络管理</a></li>
 </ul>
 </div>
 </div>
@@ -440,8 +432,8 @@ Docker store允许用户购买和出售自己的镜像，也可以免费发布�
 Commands:
   attach      Attach to a running container
   build       Build an image from a Dockerfile
-  commit      Create a new image from a container's changes
-  cp          Copy files/folders between a container and the local filesystem
+  commit      Create a new image from a container's changes, docker commit -m='A new image' --author='vker' 614122c0aabb vker/bvok
+  cp          Copy files/folders between a container and the local filesystem 使用符号:区分源和目标
   create      Create a new container
   diff        Inspect changes to files or directories on a container's filesystem
   events      Get real time events from the server
@@ -464,8 +456,8 @@ Commands:
   push        Push an image or a repository to a registry
   rename      Rename a container
   restart     Restart one or more containers
-  rm          Remove one or more containers
-  rmi         Remove one or more images
+  rm          Remove one or more containers docker rm $(docker ps -a -q)
+  rmi         Remove one or more images docker rmi $(docker images -q)，docker rmi $(docker images | grep "^&lt;none&gt;" | awk "{print $3}")
   run         Run a command in a new container
   save        Save one or more images to a tar archive (streamed to STDOUT by default)
   search      Search the Docker Hub for images
@@ -539,57 +531,57 @@ Live Restore Enabled: false
 docker
 ├── containers
 ├── image
-│   └── overlay
-│       ├── distribution
-│       │   ├── diffid-by-digest
-│       │   └── v2metadata-by-diffid
-│       ├── imagedb
-│       │   ├── content
-│       │   └── metadata
-│       ├── layerdb
-│       │   ├── mounts
-│       │   ├── sha256
-│       │   └── tmp
-│       └── repositories.json
+│   └── overlay
+│       ├── distribution
+│       │   ├── diffid-by-digest
+│       │   └── v2metadata-by-diffid
+│       ├── imagedb
+│       │   ├── content
+│       │   └── metadata
+│       ├── layerdb
+│       │   ├── mounts
+│       │   ├── sha256
+│       │   └── tmp
+│       └── repositories.json
 ├── network
-│   └── files
-│       └── local-kv.db
+│   └── files
+│       └── local-kv.db
 ├── overlay
-│   ├── 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
-│   │   └── root
-│   │       ├── bin
-│   │       ├── dev
-│   │       ├── etc
-│   │       ├── home
-│   │       ├── root
-│   │       ├── tmp
-│   │       ├── usr
-│   │       └── var
-│   ├── b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
-│   │   └── root
-│   │       ├── bin
-│   │       ├── dev
-│   │       ├── etc
-│   │       ├── home
-│   │       ├── root
-│   │       ├── tmp
-│   │       ├── usr
-│   │       └── var
-│   └── b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
-│       └── root
-│           ├── bin
-│           ├── dev
-│           ├── etc
-│           ├── home
-│           ├── root
-│           ├── tmp
-│           ├── usr
-│           └── var
+│   ├── 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
+│   │   └── root
+│   │       ├── bin
+│   │       ├── dev
+│   │       ├── etc
+│   │       ├── home
+│   │       ├── root
+│   │       ├── tmp
+│   │       ├── usr
+│   │       └── var
+│   ├── b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
+│   │   └── root
+│   │       ├── bin
+│   │       ├── dev
+│   │       ├── etc
+│   │       ├── home
+│   │       ├── root
+│   │       ├── tmp
+│   │       ├── usr
+│   │       └── var
+│   └── b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
+│       └── root
+│           ├── bin
+│           ├── dev
+│           ├── etc
+│           ├── home
+│           ├── root
+│           ├── tmp
+│           ├── usr
+│           └── var
 ├── plugins
-│   ├── storage
-│   │   └── blobs
-│   │       └── tmp
-│   └── tmp
+│   ├── storage
+│   │   └── blobs
+│   │       └── tmp
+│   └── tmp
 ├── swarm
 ├── tmp
 ├── trust
@@ -823,6 +815,260 @@ clearlinux:针对intel架构优化，面向云端的linux系统。
 <p>
 练习alpine环境下运行golang web程序
 </p>
+
+<p>
+最佳实践
+</p>
+
+<p>
+1.把维护者和更新系统的命令依次写在最上方
+</p>
+
+<p>
+2.使用标签管理 Dockerfile
+</p>
+
+<p>
+3.避免映射公共端口，映射端口并不属于 Dockerfile 的工作范围
+</p>
+
+<p>
+4.使用类似 array 形式的 CMD 和 ENTRYPOINT
+</p>
+
+<p>
+5.使用.dockerignore文件,为了在docker build过程中更快上传和更加高效，
+</p>
+
+<p>
+应该使用一个.dockerignore文件用来排除构建镜像时不需要的文件或目录。
+</p>
+
+<p>
+例如,除非.git在构建过程中需要用到，否则你应该将它添加到.dockerignore文件中，这样可以节省很多时间。
+</p>
+
+<p>
+6 避免安装不必要的软件包
+</p>
+
+<p>
+为了降低复杂性、依赖性、文件大小以及构建时间，应该避免安装额外的或不必要的包。
+</p>
+
+<p>
+7 每个容器都跑一个进程
+</p>
+
+<p>
+在大多数情况下，一个容器应该只单独跑一个程序。
+</p>
+
+<p>
+解耦应用到多个容器使其更容易横向扩展和重用。
+</p>
+
+<p>
+如果一个服务依赖另外一个服务，可以参考 Linking Containers Together。
+</p>
+
+<p>
+8 最小化层
+</p>
+
+<p>
+我们知道每执行一个指令，都会有一次镜像的提交，镜像是分层的结构，对于Dockerfile，应该找到可读性和最小化层之间的平衡。
+</p>
+
+<p>
+9 多行参数排序
+</p>
+
+<p>
+如果可能，通过字母顺序来排序，这样可以避免安装包的重复并且更容易更新列表，另外可读性也会更强，添加一个空行使用\换行:
+</p>
+
+<p>
+#+bengin<sub>src</sub> sh
+RUN apt-get update &amp;&amp; apt-get install -y \
+  bzr \
+  cvs \
+  git \
+  mercurial \
+  subversion
+#+enf<sub>src</sub>
+</p>
+
+<p>
+10 创建缓存
+</p>
+
+<p>
+镜像构建过程中会按照Dockerfile的顺序依次执行，每执行一次指令 Docker 会寻找是否有存在的镜像缓存可复用.
+</p>
+
+<p>
+如果没有则创建新的镜像。如果不想使用缓存，则可以在docker build时添加&#x2013;no-cache=true选项。
+</p>
+
+<p>
+从基础镜像开始就已经在缓存中了，下一个指令会对比所有的子镜像寻找是否执行相同的指令，如果没有则缓存失效。
+</p>
+
+<p>
+在大多数情况下只对比Dockerfile指令和子镜像就足够了。
+</p>
+
+<p>
+ADD和COPY指令除外，执行ADD和COPY时存放到镜像的文件也是需要检查的，完成一个文件的校验之后再利用这个校验在缓存中查找
+</p>
+
+<p>
+，如果检测的文件改变则缓存失效。RUN apt-get -y update命令只检查命令是否匹配，如果匹配就不会再执行更新了。
+</p>
+
+<p>
+为了有效地利用缓存，你需要保持你的 Dockerfile 一致，并且尽量在末尾修改。
+</p>
+
+<p>
+FROM: 只要可能就使用官方镜像库作为基础镜像
+</p>
+
+<p>
+RUN: 为保持可读性、方便理解、可维护性，把长或者复杂的RUN语句使用\分隔符分成多行
+</p>
+
+<p>
+不建议RUN apt-get update独立成行，否则如果后续包有更新，那么也不会再执行更新
+</p>
+
+<p>
+避免使用RUN apt-get upgrade或者dist-upgrade，很多必要的包在一个非privileged权限的容器里是无法升级的。如果知道某个包更新，使用apt-get install -y xxx
+</p>
+
+<p>
+标准写法
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">RUN apt-get update &amp;&amp; apt-get install -y package-bar package-foo
+</pre>
+</div>
+
+<p>
+例子:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">RUN apt-get update &amp;&amp; apt-get install -y \
+
+    aufs-tools \
+
+    automake \
+
+    btrfs-tools \
+
+    build-essential \
+
+    curl \
+
+    dpkg-sig \
+
+    git \
+
+    iptables \
+
+    libapparmor-dev \
+
+    libcap-dev \
+
+    libsqlite3-dev \
+
+    lxc=1.0* \
+
+    mercurial \
+
+    parallel \
+
+    reprepro \
+
+    ruby1.9.1 \
+
+    ruby1.9.1-dev \
+
+    s3cmd=1.1.0*
+</pre>
+</div>
+
+<p>
+CMD: 推荐使用CMD [“executable”, “param1”, “param2”…]这种格式，CMD [“param”, “param”]则配合ENTRYPOINT使用
+</p>
+
+<p>
+EXPOSE: Dockerfile 指定要公开的端口，使用docker run时指定映射到宿主机的端口即可
+</p>
+
+<p>
+ENV: 为了使新的软件更容易运行，可以使用ENV更新PATH变量。如ENV PATH /usr/local/nginx/bin:$PATH确保CMD ["nginx"]即可运行
+</p>
+
+<p>
+ENV也可以这样定义变量：
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-sh">ENV PG_MAJOR 9.3
+
+ENV PG_VERSION 9.3.4
+
+RUN curl -SL http://example.com/postgres-$PG_VERSION.tar.xz | tar -xJC /usr/src/postgress &amp;&amp; …
+
+ENV PATH /usr/local/postgres-$PG_MAJOR/bin:$PATH
+</pre>
+</div>
+
+<p>
+ADDorCOPY:ADD比COPY多一些特性「tar 文件自动解包和支持远程 URL」，不推荐添加远程 URL
+</p>
+
+<p>
+如不推荐这种方式:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">ADD http://example.com/big.tar.xz /usr/src/things/
+
+RUN tar -xJf /usr/src/things/big.tar.xz -C /usr/src/things
+
+RUN make -C /usr/src/things all
+</pre>
+</div>
+
+<p>
+推荐使用 curl 或者 wget 替换，使用如下方式:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">RUN mkdir -p /usr/src/things \
+
+    &amp;&amp; curl -SL http://example.com/big.tar.gz \
+
+    | tar -xJC /usr/src/things \
+
+    &amp;&amp; make -C /usr/src/things all
+</pre>
+</div>
+
+<p>
+如果不需要添加 tar 文件，推荐使用COPY
+</p>
 </div>
 </div>
 </div>
@@ -885,7 +1131,6 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 </div>
 </div>
 
-
 <div id="outline-container-sec-5-5" class="outline-3">
 <h3 id="sec-5-5"><span class="section-number-3">5.5</span> 仓库</h3>
 <div class="outline-text-3" id="text-5-5">
@@ -914,39 +1159,150 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 <h4 id="sec-5-5-2"><span class="section-number-4">5.5.2</span> 私有仓库</h4>
 <div class="outline-text-4" id="text-5-5-2">
 <p>
-自己搭建
+docker容器的方式进行部署，客户端添加私有仓库地址。
 </p>
 </div>
-</div>
-</div>
 
-<div id="outline-container-sec-5-6" class="outline-3">
-<h3 id="sec-5-6"><span class="section-number-3">5.6</span> SERVICES</h3>
-<div class="outline-text-3" id="text-5-6">
+<ol class="org-ol"><li><a id="sec-5-5-2-1" name="sec-5-5-2-1"></a>客户端<br  /><div class="outline-text-5" id="text-5-5-2-1">
+<div class="org-src-container">
+
+<pre class="src src-sh">ADD_REGISTRY='--add-registry 192.168.1.136:5000'
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="sec-5-5-2-2" name="sec-5-5-2-2"></a>服务端<br  /><div class="outline-text-5" id="text-5-5-2-2">
 <p>
-swarm
+提示https
 </p>
-</div>
+
+<p>
+需要在服务端的docker配置文件上添加配置参数
+</p>
+
+<p>
+centos7下位置为/etc/sysconfig/docker
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">OPTIONS='--selinux-enabled=false --log-driver=journald --insecure-registry 192.168.1.136:5000'
+</pre>
 </div>
 </div>
 
-<div id="outline-container-sec-6" class="outline-2">
-<h2 id="sec-6"><span class="section-number-2">6</span> 数据管理</h2>
-<div class="outline-text-2" id="text-6">
-</div><div id="outline-container-sec-6-1" class="outline-3">
-<h3 id="sec-6-1"><span class="section-number-3">6.1</span> 镜像文件系统</h3>
-</div>
-<div id="outline-container-sec-6-2" class="outline-3">
-<h3 id="sec-6-2"><span class="section-number-3">6.2</span> 挂载</h3>
-</div>
+<ol class="org-ol"><li><a id="sec-5-5-2-2-1" name="sec-5-5-2-2-1"></a>本地仓库<br  /><div class="outline-text-6" id="text-5-5-2-2-1">
+<div class="org-src-container">
+
+<pre class="src src-sh">$ docker run -d -p 5000:5000 --restart always --name registry registry:2
+</pre>
 </div>
 
-<div id="outline-container-sec-7" class="outline-2">
-<h2 id="sec-7"><span class="section-number-2">7</span> 网络管理</h2>
+<p>
+可以本地使用仓库
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">$ docker pull ubuntu
+$ docker tag ubuntu localhost:5000/ubuntu
+$ docker push localhost:5000/ubuntu
+</pre>
+</div>
+</div>
+</li>
+
+
+<li><a id="sec-5-5-2-2-2" name="sec-5-5-2-2-2"></a>远程仓库<br  /><div class="outline-text-6" id="text-5-5-2-2-2">
+<p>
+宿主机的防火墙开通端口，docker容器做好参数配置即可。
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">iptables -I INPUT 1 -p tcp --dport 5000 -j ACCEPT
+
+/etc/sysconfig/docker
+
+OPTIONS='--insecure-registry 192.168.1.136:5000'    #CentOS 7系统
+
+other_args='--insecure-registry 192.168.1.136:5000' #CentOS 6系统
+</pre>
+</div>
+
+<p>
+Ubuntu下
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo vi /etc/init/docker.conf
+
+–insecure-registry 192.168.1.136:5000
+</pre>
+</div>
+
+<p>
+重启docker
+</p>
+
+<p>
+卷挂载
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">$ sudo docker run -d -p 5000:5000 -v /opt/data/registry:/tmp/registry registry
+</pre>
+</div>
+
+<p>
+查询
+</p>
+
+<p>
+如果我们想要查询私有仓库中的所有镜像，使用docker search命令：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"># docker search registry_ip:5000/
+</pre>
+</div>
+
+<p>
+如果要查询仓库中指定账户下的镜像，则使用如下命令：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"># docker search registry_ip:5000/account/
+</pre>
+</div>
+
+<p>
+同时也可以指定镜像查询。
+</p>
+
+<p>
+停止仓库
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">$ docker stop registry &amp;&amp; docker rm -v registry
+</pre>
+</div>
+</div>
+</li></ol>
+</li></ol>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2017-09-30 周六 11:29</p>
+<p class="date">Created: 2017-10-09 周一 08:34</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

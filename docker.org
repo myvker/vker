@@ -1,25 +1,25 @@
-#+title: ä¸€æ­¥æ­¥ç²¾é€šDockerå®¹å™¨å®æˆ˜
-* Dockerç®€ä»‹
+#+title: Ò»²½²½¾«Í¨DockerÈİÆ÷ÊµÕ½
+* Docker¼ò½é
 file:./img/docker/docker.png
 
-[[https://docs.docker.com/][Dockerç›¸å…³æ–‡æ¡£]]
+[[https://docs.docker.com/][DockerÏà¹ØÎÄµµ]]
 
-* CentOS7å®‰è£…å’ŒåŸºæœ¬ä½¿ç”¨
-** è™šæ‹Ÿæœºä¸­å®‰è£…CentOS7
-** å¤‡ä»½å®‰è£…é•œåƒå’Œé€šè¿‡VMwareåˆ¶ä½œå¿«ç…§
-** Windowsä¸‹è¿œç¨‹è¿æ¥CentOS7
-** Linuxä¸‹è¿œç¨‹è¿æ¥CentOS7
+* CentOS7°²×°ºÍ»ù±¾Ê¹ÓÃ
+** ĞéÄâ»úÖĞ°²×°CentOS7
+** ±¸·İ°²×°¾µÏñºÍÍ¨¹ıVMwareÖÆ×÷¿ìÕÕ
+** WindowsÏÂÔ¶³ÌÁ¬½ÓCentOS7
+** LinuxÏÂÔ¶³ÌÁ¬½ÓCentOS7
 #+begin_src sh
 ssh root@192.168.1.105
-#è¾“å…¥å¯†ç 
-#åˆ‡æ¢åˆ°rootç”¨æˆ·
+#ÊäÈëÃÜÂë
+#ÇĞ»»µ½rootÓÃ»§
 su root
-#è¾“å…¥rootå¯†ç 
-#é€€å‡ºrootè´¦æˆ·è¿›å…¥userè´¦æˆ·
+#ÊäÈërootÃÜÂë
+#ÍË³örootÕË»§½øÈëuserÕË»§
 exit
-#å†è¾“å…¥exitæ–­å¼€è¿œç¨‹è¿æ¥
+#ÔÙÊäÈëexit¶Ï¿ªÔ¶³ÌÁ¬½Ó
 #+end_src
-* Docker CEå®‰è£…
+* Docker CE°²×°
 ** Docker CE
 #+begin_src sh
 $ sudo yum install -y yum-utils
@@ -27,7 +27,7 @@ $ sudo yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 #$ sudo yum-config-manager --enable docker-ce-edge
-#ç¦ç”¨
+#½ûÓÃ
 $ sudo yum-config-manager --disable docker-ce-edge
 $ sudo yum makecache fast
 $ sudo yum install docker-ce
@@ -36,68 +36,68 @@ $ sudo yum install docker-ce
 $ sudo systemctl start docker
 $ sudo docker run hello-world
 #+end_src
-* Dockerç‰¹ç‚¹
+* DockerÌØµã
 
 file:./img/docker/docker_SaaS.png
 
 file:./img/docker/SaaS.jpg
 
-1.æ›´å¿«é€Ÿçš„äº¤ä»˜å’Œéƒ¨ç½²
+1.¸ü¿ìËÙµÄ½»¸¶ºÍ²¿Êğ
 
-2.æ›´é«˜æ•ˆçš„è™šæ‹ŸåŒ–
+2.¸ü¸ßĞ§µÄĞéÄâ»¯
 
-3.æ›´è½»æ¾çš„è¿ç§»å’Œæ‰©å±•
+3.¸üÇáËÉµÄÇ¨ÒÆºÍÀ©Õ¹
 
-4.æ›´ç®€å•çš„ç®¡ç†
-** è™šæ‹ŸåŒ–æŠ€æœ¯æ¯”è¾ƒ
-å®¹å™¨ç›¸æ¯”è™šæ‹Ÿæœºæ›´è½»é‡
+4.¸ü¼òµ¥µÄ¹ÜÀí
+** ĞéÄâ»¯¼¼Êõ±È½Ï
+ÈİÆ÷Ïà±ÈĞéÄâ»ú¸üÇáÁ¿
 
-*** è™šæ‹Ÿæœº
+*** ĞéÄâ»ú
 
 file:./img/docker/VM.png
 
-*** å®¹å™¨
+*** ÈİÆ÷
 
 file:./img/docker/Containe.png
 
-* Dockerç»“æ„å’Œç»„æˆ
-** ç»“æ„å’Œç»„æˆ
+* Docker½á¹¹ºÍ×é³É
+** ½á¹¹ºÍ×é³É
 
 file:./img/docker/architecture.svg
 
 file:./img/docker/client_daemon_hub.png
 
-å®¢æˆ·ç«¯æœåŠ¡ç«¯æ¨¡å¼å¯å•æœºå¯åˆ†å¸ƒå¼éƒ¨ç½²
+¿Í»§¶Ë·şÎñ¶ËÄ£Ê½¿Éµ¥»ú¿É·Ö²¼Ê½²¿Êğ
 
-æœåŠ¡ç«¯è´Ÿè´£dockeré•œåƒçš„æ„å»ºï¼Œè¿è¡Œï¼Œå‘å¸ƒ.
+·şÎñ¶Ë¸ºÔğdocker¾µÏñµÄ¹¹½¨£¬ÔËĞĞ£¬·¢²¼.
 
 *** The Docker daemon
 
-æ¥æ”¶Docker APIè¯·æ±‚å’Œç®¡ç†dockerçš„å¯¹è±¡ä¾‹å¦‚é•œåƒã€å®¹å™¨ã€ç½‘ç»œã€å­˜å‚¨å·ç­‰ï¼Œ
+½ÓÊÕDocker APIÇëÇóºÍ¹ÜÀídockerµÄ¶ÔÏóÀıÈç¾µÏñ¡¢ÈİÆ÷¡¢ÍøÂç¡¢´æ´¢¾íµÈ£¬
 
-ä¹Ÿå¯ä»¥å’Œå…¶ä»–çš„Docker daemoné€šä¿¡ç®¡ç†dockerçš„service
+Ò²¿ÉÒÔºÍÆäËûµÄDocker daemonÍ¨ĞÅ¹ÜÀídockerµÄservice
 
 *** The Docker client
 
-å¯ä»¥å’Œå¤šä¸ªdaemonè¿›è¡Œé€šä¿¡ï¼Œå‘é€æŒ‡ä»¤ç»™daemon, ç”¨æˆ·å’Œdaemonäº¤äº’ä¸»è¦æ–¹å¼ã€‚
+¿ÉÒÔºÍ¶à¸ödaemon½øĞĞÍ¨ĞÅ£¬·¢ËÍÖ¸Áî¸ødaemon, ÓÃ»§ºÍdaemon½»»¥Ö÷Òª·½Ê½¡£
 
 *** Docker registries
 
-å­˜å‚¨dockeré•œåƒ,Docker Cloudæ˜¯ä¸€ä¸ªå…¬å…±ä»“åº“,æ˜¯dockeré»˜è®¤çš„ä»“åº“ã€‚
+´æ´¢docker¾µÏñ,Docker CloudÊÇÒ»¸ö¹«¹²²Ö¿â,ÊÇdockerÄ¬ÈÏµÄ²Ö¿â¡£
 
-å¯ä»¥æ­å»ºç§æœ‰ä»“åº“ã€‚
+¿ÉÒÔ´î½¨Ë½ÓĞ²Ö¿â¡£
 
-docker Cloudæœ‰dockerå¯ä¿¡ä»“åº“ã€‚
+docker CloudÓĞdocker¿ÉĞÅ²Ö¿â¡£
 
-æ‹‰å–ï¼Œæ¨é€é•œåƒåˆ°è®¾å®šä»“åº“ã€‚
+À­È¡£¬ÍÆËÍ¾µÏñµ½Éè¶¨²Ö¿â¡£
 
-Docker storeå…è®¸ç”¨æˆ·è´­ä¹°å’Œå‡ºå”®è‡ªå·±çš„é•œåƒï¼Œä¹Ÿå¯ä»¥å…è´¹å‘å¸ƒè‡ªå·±çš„é•œåƒã€‚
+Docker storeÔÊĞíÓÃ»§¹ºÂòºÍ³öÊÛ×Ô¼ºµÄ¾µÏñ£¬Ò²¿ÉÒÔÃâ·Ñ·¢²¼×Ô¼ºµÄ¾µÏñ¡£
 
 *** Docker objects
 
-åœ¨ä½¿ç”¨dockerçš„æ—¶å€™ï¼Œå°†ä¼šæ¶‰åŠåˆ°åˆ›å»ºã€ä½¿ç”¨é•œåƒã€å®¹å™¨ã€ç½‘ç»œã€å·ã€æ’ä»¶æˆ–è€…å…¶ä»–çš„å¯¹è±¡ã€‚
+ÔÚÊ¹ÓÃdockerµÄÊ±ºò£¬½«»áÉæ¼°µ½´´½¨¡¢Ê¹ÓÃ¾µÏñ¡¢ÈİÆ÷¡¢ÍøÂç¡¢¾í¡¢²å¼ş»òÕßÆäËûµÄ¶ÔÏó¡£
 
-** æŒ‡ä»¤
+** Ö¸Áî
 
 #+begin_src sh
 
@@ -117,8 +117,8 @@ Management Commands:
 Commands:
   attach      Attach to a running container
   build       Build an image from a Dockerfile
-  commit      Create a new image from a container's changes
-  cp          Copy files/folders between a container and the local filesystem
+  commit      Create a new image from a container's changes, docker commit -m='A new image' --author='vker' 614122c0aabb vker/bvok
+  cp          Copy files/folders between a container and the local filesystem Ê¹ÓÃ·ûºÅ:Çø·ÖÔ´ºÍÄ¿±ê
   create      Create a new container
   diff        Inspect changes to files or directories on a container's filesystem
   events      Get real time events from the server
@@ -141,8 +141,8 @@ Commands:
   push        Push an image or a repository to a registry
   rename      Rename a container
   restart     Restart one or more containers
-  rm          Remove one or more containers
-  rmi         Remove one or more images
+  rm          Remove one or more containers docker rm $(docker ps -a -q)
+  rmi         Remove one or more images docker rmi $(docker images -q)£¬docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
   run         Run a command in a new container
   save        Save one or more images to a tar archive (streamed to STDOUT by default)
   search      Search the Docker Hub for images
@@ -215,75 +215,75 @@ Live Restore Enabled: false
 /var/lib
 [root@localhost lib]# tree docker -L 4
 docker
-â”œâ”€â”€ containers
-â”œâ”€â”€ image
-â”‚Â Â  â””â”€â”€ overlay
-â”‚Â Â      â”œâ”€â”€ distribution
-â”‚Â Â      â”‚Â Â  â”œâ”€â”€ diffid-by-digest
-â”‚Â Â      â”‚Â Â  â””â”€â”€ v2metadata-by-diffid
-â”‚Â Â      â”œâ”€â”€ imagedb
-â”‚Â Â      â”‚Â Â  â”œâ”€â”€ content
-â”‚Â Â      â”‚Â Â  â””â”€â”€ metadata
-â”‚Â Â      â”œâ”€â”€ layerdb
-â”‚Â Â      â”‚Â Â  â”œâ”€â”€ mounts
-â”‚Â Â      â”‚Â Â  â”œâ”€â”€ sha256
-â”‚Â Â      â”‚Â Â  â””â”€â”€ tmp
-â”‚Â Â      â””â”€â”€ repositories.json
-â”œâ”€â”€ network
-â”‚Â Â  â””â”€â”€ files
-â”‚Â Â      â””â”€â”€ local-kv.db
-â”œâ”€â”€ overlay
-â”‚Â Â  â”œâ”€â”€ 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
-â”‚Â Â  â”‚Â Â  â””â”€â”€ root
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ bin
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ dev
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ etc
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ home
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ root
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ tmp
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ usr
-â”‚Â Â  â”‚Â Â      â””â”€â”€ var
-â”‚Â Â  â”œâ”€â”€ b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
-â”‚Â Â  â”‚Â Â  â””â”€â”€ root
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ bin
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ dev
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ etc
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ home
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ root
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ tmp
-â”‚Â Â  â”‚Â Â      â”œâ”€â”€ usr
-â”‚Â Â  â”‚Â Â      â””â”€â”€ var
-â”‚Â Â  â””â”€â”€ b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
-â”‚Â Â      â””â”€â”€ root
-â”‚Â Â          â”œâ”€â”€ bin
-â”‚Â Â          â”œâ”€â”€ dev
-â”‚Â Â          â”œâ”€â”€ etc
-â”‚Â Â          â”œâ”€â”€ home
-â”‚Â Â          â”œâ”€â”€ root
-â”‚Â Â          â”œâ”€â”€ tmp
-â”‚Â Â          â”œâ”€â”€ usr
-â”‚Â Â          â””â”€â”€ var
-â”œâ”€â”€ plugins
-â”‚Â Â  â”œâ”€â”€ storage
-â”‚Â Â  â”‚Â Â  â””â”€â”€ blobs
-â”‚Â Â  â”‚Â Â      â””â”€â”€ tmp
-â”‚Â Â  â””â”€â”€ tmp
-â”œâ”€â”€ swarm
-â”œâ”€â”€ tmp
-â”œâ”€â”€ trust
-â””â”€â”€ volumes
-    â””â”€â”€ metadata.db
+©À©¤©¤ containers
+©À©¤©¤ image
+©¦   ©¸©¤©¤ overlay
+©¦       ©À©¤©¤ distribution
+©¦       ©¦   ©À©¤©¤ diffid-by-digest
+©¦       ©¦   ©¸©¤©¤ v2metadata-by-diffid
+©¦       ©À©¤©¤ imagedb
+©¦       ©¦   ©À©¤©¤ content
+©¦       ©¦   ©¸©¤©¤ metadata
+©¦       ©À©¤©¤ layerdb
+©¦       ©¦   ©À©¤©¤ mounts
+©¦       ©¦   ©À©¤©¤ sha256
+©¦       ©¦   ©¸©¤©¤ tmp
+©¦       ©¸©¤©¤ repositories.json
+©À©¤©¤ network
+©¦   ©¸©¤©¤ files
+©¦       ©¸©¤©¤ local-kv.db
+©À©¤©¤ overlay
+©¦   ©À©¤©¤ 9c624a3534090b0ef2c78352487c2d35e238ac00e674015124f50092bb1f512c
+©¦   ©¦   ©¸©¤©¤ root
+©¦   ©¦       ©À©¤©¤ bin
+©¦   ©¦       ©À©¤©¤ dev
+©¦   ©¦       ©À©¤©¤ etc
+©¦   ©¦       ©À©¤©¤ home
+©¦   ©¦       ©À©¤©¤ root
+©¦   ©¦       ©À©¤©¤ tmp
+©¦   ©¦       ©À©¤©¤ usr
+©¦   ©¦       ©¸©¤©¤ var
+©¦   ©À©¤©¤ b06d7c2247c2d8327c1154536527022b5c882d9e2281decf13923718e8099205
+©¦   ©¦   ©¸©¤©¤ root
+©¦   ©¦       ©À©¤©¤ bin
+©¦   ©¦       ©À©¤©¤ dev
+©¦   ©¦       ©À©¤©¤ etc
+©¦   ©¦       ©À©¤©¤ home
+©¦   ©¦       ©À©¤©¤ root
+©¦   ©¦       ©À©¤©¤ tmp
+©¦   ©¦       ©À©¤©¤ usr
+©¦   ©¦       ©¸©¤©¤ var
+©¦   ©¸©¤©¤ b2ccaa0fb436955c68d344848036c4407481c276a66501f9b5531164eefbac46
+©¦       ©¸©¤©¤ root
+©¦           ©À©¤©¤ bin
+©¦           ©À©¤©¤ dev
+©¦           ©À©¤©¤ etc
+©¦           ©À©¤©¤ home
+©¦           ©À©¤©¤ root
+©¦           ©À©¤©¤ tmp
+©¦           ©À©¤©¤ usr
+©¦           ©¸©¤©¤ var
+©À©¤©¤ plugins
+©¦   ©À©¤©¤ storage
+©¦   ©¦   ©¸©¤©¤ blobs
+©¦   ©¦       ©¸©¤©¤ tmp
+©¦   ©¸©¤©¤ tmp
+©À©¤©¤ swarm
+©À©¤©¤ tmp
+©À©¤©¤ trust
+©¸©¤©¤ volumes
+    ©¸©¤©¤ metadata.db
 
 55 directories, 3 files
 [root@localhost lib]# 
 
 #+end_src
 
-** é•œåƒ
+** ¾µÏñ
 
-ä¸€èˆ¬åŸºäºå…¶ä»–é•œåƒï¼Œå¹¶æ·»åŠ è‡ªå®šä¹‰éƒ¨åˆ†ï¼Œåˆ†å±‚æ„å»ºï¼Œä¿ç•™å†å²ï¼Œæ„å»ºæ¯å±‚ç»“æŸçš„æ—¶å€™ï¼Œä¸éœ€è¦çš„æ¸…é™¤ï¼Œä¸åŒ…æ‹¬åŠ¨æ€æ•°æ®ã€‚
+Ò»°ã»ùÓÚÆäËû¾µÏñ£¬²¢Ìí¼Ó×Ô¶¨Òå²¿·Ö£¬·Ö²ã¹¹½¨£¬±£ÁôÀúÊ·£¬¹¹½¨Ã¿²ã½áÊøµÄÊ±ºò£¬²»ĞèÒªµÄÇå³ı£¬²»°üÀ¨¶¯Ì¬Êı¾İ¡£
 
-ä¸æ˜¯æ•´ä½“æ‰“åŒ…çš„å†…å®¹ï¼Œè€Œæ˜¯ä¸€å±‚å±‚ç»„æˆçš„ã€‚å¯ä»¥ç†è§£ä¸ºç”¨æ¥åˆ›å»ºå®¹å™¨çš„åªè¯»æ¨¡æ¿ã€‚
+²»ÊÇÕûÌå´ò°üµÄÄÚÈİ£¬¶øÊÇÒ»²ã²ã×é³ÉµÄ¡£¿ÉÒÔÀí½âÎªÓÃÀ´´´½¨ÈİÆ÷µÄÖ»¶ÁÄ£°å¡£
 
 #+begin_src sh
 
@@ -314,13 +314,13 @@ busybox             latest              54511612f1c4        2 weeks ago         
 
 #+end_src
 
-æ¼”ç¤º
+ÑİÊ¾
 
-è‡ªå·±å¯ä»¥åˆ›å»ºé•œåƒå’Œå‘å¸ƒé•œåƒï¼Œæˆ–è€…ä½¿ç”¨ç¬¬ä¸‰æ–¹å‘å¸ƒåˆ°ä»“åº“çš„é•œåƒï¼Œ
+×Ô¼º¿ÉÒÔ´´½¨¾µÏñºÍ·¢²¼¾µÏñ£¬»òÕßÊ¹ÓÃµÚÈı·½·¢²¼µ½²Ö¿âµÄ¾µÏñ£¬
 
-è‡ªå·±åˆ›é€ é•œåƒéœ€è¦ä½¿ç”¨è§„å®šçš„è¯­æ³•ç¼–å†™Dockerfileæ–‡ä»¶ç„¶åæ‰§è¡Œæ„å»ºï¼Œæ¯ä¸ªæ‰§è¡Œå‘½ä»¤éƒ½ä¼šåˆ›å»ºä¸€å±‚ã€‚
+×Ô¼º´´Ôì¾µÏñĞèÒªÊ¹ÓÃ¹æ¶¨µÄÓï·¨±àĞ´DockerfileÎÄ¼şÈ»ºóÖ´ĞĞ¹¹½¨£¬Ã¿¸öÖ´ĞĞÃüÁî¶¼»á´´½¨Ò»²ã¡£
 
-å¦‚æœä¿®æ”¹äº†Dockerfileå¹¶é‡æ–°æ„å»ºé•œåƒï¼Œåªæœ‰è¢«ä¿®æ”¹çš„å±‚æ‰ä¼šè¢«é‡æ–°æ„å»ºï¼Œè¿™æ ·æ„å»ºå¾ˆå¿«ï¼Œè½»é‡ï¼Œå°å‹ã€‚
+Èç¹ûĞŞ¸ÄÁËDockerfile²¢ÖØĞÂ¹¹½¨¾µÏñ£¬Ö»ÓĞ±»ĞŞ¸ÄµÄ²ã²Å»á±»ÖØĞÂ¹¹½¨£¬ÕâÑù¹¹½¨ºÜ¿ì£¬ÇáÁ¿£¬Ğ¡ĞÍ¡£
 
 Dockerfile
 
@@ -347,7 +347,7 @@ HEALTHCHECK
 SHELL
 #+end_src
 
-golang webæºç 
+golang webÔ´Âë
 
 #+begin_src golang
 package main
@@ -370,19 +370,19 @@ func hello(w http.ResponseWriter, r *http.Request) {
     fmt.Println()
 }
 func main() {
-    http.HandleFunc("/", hello) //è®¾ç½®è®¿é—®çš„è·¯ç”±
-    err := http.ListenAndServe("0.0.0.0:8080", nil) //è®¾ç½®ç›‘å¬çš„ç«¯å£
+    http.HandleFunc("/", hello) //ÉèÖÃ·ÃÎÊµÄÂ·ÓÉ
+    err := http.ListenAndServe("0.0.0.0:8080", nil) //ÉèÖÃ¼àÌıµÄ¶Ë¿Ú
     if err != nil {
         log.Fatal("ListenAndServe: ", err)
     }
 }
 #+end_src
 
-Dockerfileæºç 
+DockerfileÔ´Âë
 
 #+begin_src sh
 
-#åœ¨Dockerfileä¸­ï¼Œ#å¼€å¤´çš„è¢«è®¤ä½œæ˜¯æ³¨é‡Šï¼› 
+#ÔÚDockerfileÖĞ£¬#¿ªÍ·µÄ±»ÈÏ×÷ÊÇ×¢ÊÍ£» 
 # Use an official alpine runtime as a parent image
 ##FROM centos:latest
 FROM alpine:latest
@@ -408,7 +408,7 @@ ENV NAME vker
 
 #+end_src
 
-æ„å»º
+¹¹½¨
 
 #+begin_src sh
 
@@ -430,7 +430,7 @@ busybox             latest              54511612f1c4        2 weeks ago         
 
 #+end_src
 
-ä¿®æ”¹Dockerfileåå†è¿›è¡Œæ„å»º
+ĞŞ¸ÄDockerfileºóÔÙ½øĞĞ¹¹½¨
 
 #+begin_src sh
 
@@ -440,29 +440,201 @@ busybox             latest              54511612f1c4        2 weeks ago         
 #+end_src
 
 
-æ¼”ç¤ºæ„å»ºç®€å•é•œåƒå¹¶ç•™ä½œä¸š
+ÑİÊ¾¹¹½¨¼òµ¥¾µÏñ²¢Áô×÷Òµ
 
-*** å‚è€ƒé•œåƒ
+*** ²Î¿¼¾µÏñ
 
-scratch:ä¸€ä¸ªç©ºé•œåƒï¼Œç‰¹åˆ«æ˜¯ç”¨äºâ€œä»å¤´å¼€å§‹â€æ„å»ºé•œåƒã€‚
+scratch:Ò»¸ö¿Õ¾µÏñ£¬ÌØ±ğÊÇÓÃÓÚ¡°´ÓÍ·¿ªÊ¼¡±¹¹½¨¾µÏñ¡£
 
-busybox:å°é•œåƒï¼Œé€‚åˆé™æ€ç¼–è¯‘çš„ä¸ä¾èµ–æ“ä½œç³»ç»Ÿç¯å¢ƒçš„äºŒè¿›åˆ¶ç¨‹åºï¼Œæ¼”ç¤ºgolangç¼–è¯‘webç¨‹åºå¹¶è¿è¡Œåœ¨busyboxä¸‹ã€‚
+busybox:Ğ¡¾µÏñ£¬ÊÊºÏ¾²Ì¬±àÒëµÄ²»ÒÀÀµ²Ù×÷ÏµÍ³»·¾³µÄ¶ş½øÖÆ³ÌĞò£¬ÑİÊ¾golang±àÒëweb³ÌĞò²¢ÔËĞĞÔÚbusyboxÏÂ¡£
 
-busybox:uclibc (å¾® åµŒå…¥)  busybox:glibc (GNU)  busybox:musl(åµŒå…¥)
+busybox:uclibc (Î¢ Ç¶Èë)  busybox:glibc (GNU)  busybox:musl(Ç¶Èë)
 
-alpine:5Må·¦å³ï¼Œå¸¦æœ‰è½¯ä»¶å®‰è£…åŠŸèƒ½çš„å°é•œåƒï¼Œå¾ˆé€‚åˆåšä¸ºåŸºç¡€é•œåƒã€‚
+alpine:5M×óÓÒ£¬´øÓĞÈí¼ş°²×°¹¦ÄÜµÄĞ¡¾µÏñ£¬ºÜÊÊºÏ×öÎª»ù´¡¾µÏñ¡£
 
-clearlinux:é’ˆå¯¹intelæ¶æ„ä¼˜åŒ–ï¼Œé¢å‘äº‘ç«¯çš„linuxç³»ç»Ÿã€‚
+clearlinux:Õë¶Ôintel¼Ü¹¹ÓÅ»¯£¬ÃæÏòÔÆ¶ËµÄlinuxÏµÍ³¡£
 
-ç»ƒä¹ alpineç¯å¢ƒä¸‹è¿è¡Œgolang webç¨‹åº
+Á·Ï°alpine»·¾³ÏÂÔËĞĞgolang web³ÌĞò
 
-** å®¹å™¨
+×î¼ÑÊµ¼ù
 
-ä»é•œåƒåˆ›å»ºçš„è¿è¡Œå®ä¾‹ï¼Œå¯åŠ¨ã€å¼€å§‹ã€åœæ­¢ã€åˆ é™¤ï¼Œç›¸å½“äºä¸€ä¸ªå®Œæ•´çš„linuxæ“ä½œç³»ç»Ÿï¼Œç›¸äº’éš”ç¦»ã€ä¿è¯å®‰å…¨ï¼Œè¿è¡Œåº”ç”¨ã€‚
+1.°ÑÎ¬»¤ÕßºÍ¸üĞÂÏµÍ³µÄÃüÁîÒÀ´ÎĞ´ÔÚ×îÉÏ·½
 
-å¯ä»¥å°†ä¸€ä¸ªå®¹å™¨æ¥å…¥å¤šä¸ªç½‘ç»œï¼Œå¯ä»¥æŒ‚è½½å­˜å‚¨ï¼Œå¯ä»¥åŸºäºå½“å‰çŠ¶æ€å®¹å™¨åˆ›å»ºé•œåƒã€‚
+2.Ê¹ÓÃ±êÇ©¹ÜÀí Dockerfile
 
-å®¹å™¨è¿è¡Œ->åœæ­¢->åˆ é™¤ è·¯å¾„å˜åŒ–
+3.±ÜÃâÓ³Éä¹«¹²¶Ë¿Ú£¬Ó³Éä¶Ë¿Ú²¢²»ÊôÓÚ Dockerfile µÄ¹¤×÷·¶Î§
+
+4.Ê¹ÓÃÀàËÆ array ĞÎÊ½µÄ CMD ºÍ ENTRYPOINT
+
+5.Ê¹ÓÃ.dockerignoreÎÄ¼ş,ÎªÁËÔÚdocker build¹ı³ÌÖĞ¸ü¿ìÉÏ´«ºÍ¸ü¼Ó¸ßĞ§£¬
+
+Ó¦¸ÃÊ¹ÓÃÒ»¸ö.dockerignoreÎÄ¼şÓÃÀ´ÅÅ³ı¹¹½¨¾µÏñÊ±²»ĞèÒªµÄÎÄ¼ş»òÄ¿Â¼¡£
+
+ÀıÈç,³ı·Ç.gitÔÚ¹¹½¨¹ı³ÌÖĞĞèÒªÓÃµ½£¬·ñÔòÄãÓ¦¸Ã½«ËüÌí¼Óµ½.dockerignoreÎÄ¼şÖĞ£¬ÕâÑù¿ÉÒÔ½ÚÊ¡ºÜ¶àÊ±¼ä¡£
+
+6 ±ÜÃâ°²×°²»±ØÒªµÄÈí¼ş°ü
+
+ÎªÁË½µµÍ¸´ÔÓĞÔ¡¢ÒÀÀµĞÔ¡¢ÎÄ¼ş´óĞ¡ÒÔ¼°¹¹½¨Ê±¼ä£¬Ó¦¸Ã±ÜÃâ°²×°¶îÍâµÄ»ò²»±ØÒªµÄ°ü¡£
+
+7 Ã¿¸öÈİÆ÷¶¼ÅÜÒ»¸ö½ø³Ì
+
+ÔÚ´ó¶àÊıÇé¿öÏÂ£¬Ò»¸öÈİÆ÷Ó¦¸ÃÖ»µ¥¶ÀÅÜÒ»¸ö³ÌĞò¡£
+
+½âñîÓ¦ÓÃµ½¶à¸öÈİÆ÷Ê¹Æä¸üÈİÒ×ºáÏòÀ©Õ¹ºÍÖØÓÃ¡£
+
+Èç¹ûÒ»¸ö·şÎñÒÀÀµÁíÍâÒ»¸ö·şÎñ£¬¿ÉÒÔ²Î¿¼ Linking Containers Together¡£
+
+8 ×îĞ¡»¯²ã
+
+ÎÒÃÇÖªµÀÃ¿Ö´ĞĞÒ»¸öÖ¸Áî£¬¶¼»áÓĞÒ»´Î¾µÏñµÄÌá½»£¬¾µÏñÊÇ·Ö²ãµÄ½á¹¹£¬¶ÔÓÚDockerfile£¬Ó¦¸ÃÕÒµ½¿É¶ÁĞÔºÍ×îĞ¡»¯²ãÖ®¼äµÄÆ½ºâ¡£
+
+9 ¶àĞĞ²ÎÊıÅÅĞò
+
+Èç¹û¿ÉÄÜ£¬Í¨¹ı×ÖÄ¸Ë³ĞòÀ´ÅÅĞò£¬ÕâÑù¿ÉÒÔ±ÜÃâ°²×°°üµÄÖØ¸´²¢ÇÒ¸üÈİÒ×¸üĞÂÁĞ±í£¬ÁíÍâ¿É¶ÁĞÔÒ²»á¸üÇ¿£¬Ìí¼ÓÒ»¸ö¿ÕĞĞÊ¹ÓÃ\»»ĞĞ:
+
+#+bengin_src sh
+RUN apt-get update && apt-get install -y \
+  bzr \
+  cvs \
+  git \
+  mercurial \
+  subversion
+#+enf_src
+
+10 ´´½¨»º´æ
+
+¾µÏñ¹¹½¨¹ı³ÌÖĞ»á°´ÕÕDockerfileµÄË³ĞòÒÀ´ÎÖ´ĞĞ£¬Ã¿Ö´ĞĞÒ»´ÎÖ¸Áî Docker »áÑ°ÕÒÊÇ·ñÓĞ´æÔÚµÄ¾µÏñ»º´æ¿É¸´ÓÃ.
+
+Èç¹ûÃ»ÓĞÔò´´½¨ĞÂµÄ¾µÏñ¡£Èç¹û²»ÏëÊ¹ÓÃ»º´æ£¬Ôò¿ÉÒÔÔÚdocker buildÊ±Ìí¼Ó--no-cache=trueÑ¡Ïî¡£
+
+´Ó»ù´¡¾µÏñ¿ªÊ¼¾ÍÒÑ¾­ÔÚ»º´æÖĞÁË£¬ÏÂÒ»¸öÖ¸Áî»á¶Ô±ÈËùÓĞµÄ×Ó¾µÏñÑ°ÕÒÊÇ·ñÖ´ĞĞÏàÍ¬µÄÖ¸Áî£¬Èç¹ûÃ»ÓĞÔò»º´æÊ§Ğ§¡£
+
+ÔÚ´ó¶àÊıÇé¿öÏÂÖ»¶Ô±ÈDockerfileÖ¸ÁîºÍ×Ó¾µÏñ¾Í×ã¹»ÁË¡£
+
+ADDºÍCOPYÖ¸Áî³ıÍâ£¬Ö´ĞĞADDºÍCOPYÊ±´æ·Åµ½¾µÏñµÄÎÄ¼şÒ²ÊÇĞèÒª¼ì²éµÄ£¬Íê³ÉÒ»¸öÎÄ¼şµÄĞ£ÑéÖ®ºóÔÙÀûÓÃÕâ¸öĞ£ÑéÔÚ»º´æÖĞ²éÕÒ
+
+£¬Èç¹û¼ì²âµÄÎÄ¼ş¸Ä±äÔò»º´æÊ§Ğ§¡£RUN apt-get -y updateÃüÁîÖ»¼ì²éÃüÁîÊÇ·ñÆ¥Åä£¬Èç¹ûÆ¥Åä¾Í²»»áÔÙÖ´ĞĞ¸üĞÂÁË¡£
+
+ÎªÁËÓĞĞ§µØÀûÓÃ»º´æ£¬ÄãĞèÒª±£³ÖÄãµÄ Dockerfile Ò»ÖÂ£¬²¢ÇÒ¾¡Á¿ÔÚÄ©Î²ĞŞ¸Ä¡£
+
+FROM: Ö»Òª¿ÉÄÜ¾ÍÊ¹ÓÃ¹Ù·½¾µÏñ¿â×÷Îª»ù´¡¾µÏñ
+
+RUN: Îª±£³Ö¿É¶ÁĞÔ¡¢·½±ãÀí½â¡¢¿ÉÎ¬»¤ĞÔ£¬°Ñ³¤»òÕß¸´ÔÓµÄRUNÓï¾äÊ¹ÓÃ\·Ö¸ô·û·Ö³É¶àĞĞ
+
+²»½¨ÒéRUN apt-get update¶ÀÁ¢³ÉĞĞ£¬·ñÔòÈç¹ûºóĞø°üÓĞ¸üĞÂ£¬ÄÇÃ´Ò²²»»áÔÙÖ´ĞĞ¸üĞÂ
+
+±ÜÃâÊ¹ÓÃRUN apt-get upgrade»òÕßdist-upgrade£¬ºÜ¶à±ØÒªµÄ°üÔÚÒ»¸ö·ÇprivilegedÈ¨ÏŞµÄÈİÆ÷ÀïÊÇÎŞ·¨Éı¼¶µÄ¡£Èç¹ûÖªµÀÄ³¸ö°ü¸üĞÂ£¬Ê¹ÓÃapt-get install -y xxx
+
+±ê×¼Ğ´·¨
+
+#+begin_src sh
+
+RUN apt-get update && apt-get install -y package-bar package-foo
+
+#+end_src
+
+Àı×Ó:
+
+#+begin_src sh
+
+RUN apt-get update && apt-get install -y \
+
+    aufs-tools \
+
+    automake \
+
+    btrfs-tools \
+
+    build-essential \
+
+    curl \
+
+    dpkg-sig \
+
+    git \
+
+    iptables \
+
+    libapparmor-dev \
+
+    libcap-dev \
+
+    libsqlite3-dev \
+
+    lxc=1.0* \
+
+    mercurial \
+
+    parallel \
+
+    reprepro \
+
+    ruby1.9.1 \
+
+    ruby1.9.1-dev \
+
+    s3cmd=1.1.0*
+
+#+end_src
+
+CMD: ÍÆ¼öÊ¹ÓÃCMD [¡°executable¡±, ¡°param1¡±, ¡°param2¡±¡­]ÕâÖÖ¸ñÊ½£¬CMD [¡°param¡±, ¡°param¡±]ÔòÅäºÏENTRYPOINTÊ¹ÓÃ
+
+EXPOSE: Dockerfile Ö¸¶¨Òª¹«¿ªµÄ¶Ë¿Ú£¬Ê¹ÓÃdocker runÊ±Ö¸¶¨Ó³Éäµ½ËŞÖ÷»úµÄ¶Ë¿Ú¼´¿É
+
+ENV: ÎªÁËÊ¹ĞÂµÄÈí¼ş¸üÈİÒ×ÔËĞĞ£¬¿ÉÒÔÊ¹ÓÃENV¸üĞÂPATH±äÁ¿¡£ÈçENV PATH /usr/local/nginx/bin:$PATHÈ·±£CMD ["nginx"]¼´¿ÉÔËĞĞ
+
+ENVÒ²¿ÉÒÔÕâÑù¶¨Òå±äÁ¿£º
+
+
+#+begin_src sh
+
+ENV PG_MAJOR 9.3
+
+ENV PG_VERSION 9.3.4
+
+RUN curl -SL http://example.com/postgres-$PG_VERSION.tar.xz | tar -xJC /usr/src/postgress && ¡­
+
+ENV PATH /usr/local/postgres-$PG_MAJOR/bin:$PATH
+
+#+end_src
+
+ADDorCOPY:ADD±ÈCOPY¶àÒ»Ğ©ÌØĞÔ¡¸tar ÎÄ¼ş×Ô¶¯½â°üºÍÖ§³ÖÔ¶³Ì URL¡¹£¬²»ÍÆ¼öÌí¼ÓÔ¶³Ì URL
+
+Èç²»ÍÆ¼öÕâÖÖ·½Ê½:
+
+#+begin_src sh
+
+ADD http://example.com/big.tar.xz /usr/src/things/
+
+RUN tar -xJf /usr/src/things/big.tar.xz -C /usr/src/things
+
+RUN make -C /usr/src/things all
+
+#+end_src
+
+ÍÆ¼öÊ¹ÓÃ curl »òÕß wget Ìæ»»£¬Ê¹ÓÃÈçÏÂ·½Ê½:
+
+#+begin_src sh
+
+RUN mkdir -p /usr/src/things \
+
+    && curl -SL http://example.com/big.tar.gz \
+
+    | tar -xJC /usr/src/things \
+
+    && make -C /usr/src/things all
+
+#+end_src
+
+Èç¹û²»ĞèÒªÌí¼Ó tar ÎÄ¼ş£¬ÍÆ¼öÊ¹ÓÃCOPY
+
+** ÈİÆ÷
+
+´Ó¾µÏñ´´½¨µÄÔËĞĞÊµÀı£¬Æô¶¯¡¢¿ªÊ¼¡¢Í£Ö¹¡¢É¾³ı£¬Ïàµ±ÓÚÒ»¸öÍêÕûµÄlinux²Ù×÷ÏµÍ³£¬Ïà»¥¸ôÀë¡¢±£Ö¤°²È«£¬ÔËĞĞÓ¦ÓÃ¡£
+
+¿ÉÒÔ½«Ò»¸öÈİÆ÷½ÓÈë¶à¸öÍøÂç£¬¿ÉÒÔ¹ÒÔØ´æ´¢£¬¿ÉÒÔ»ùÓÚµ±Ç°×´Ì¬ÈİÆ÷´´½¨¾µÏñ¡£
+
+ÈİÆ÷ÔËĞĞ->Í£Ö¹->É¾³ı Â·¾¶±ä»¯
 
 #+begin_src sh
 
@@ -488,37 +660,132 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 #+end_src
 
 
-é•œåƒæ˜¯åªè¯»çš„ï¼Œå®¹å™¨åœ¨å¯åŠ¨çš„æ—¶å€™åˆ›å»ºä¸€å±‚å¯å†™å±‚ä½œä¸ºæœ€ä¸Šå±‚ã€‚
+¾µÏñÊÇÖ»¶ÁµÄ£¬ÈİÆ÷ÔÚÆô¶¯µÄÊ±ºò´´½¨Ò»²ã¿ÉĞ´²ã×÷Îª×îÉÏ²ã¡£
 
-å¯ä»¥ä»ä¸€ä¸ªé•œåƒåˆ›å»ºå¤šä¸ªéš”ç¦»çš„äº’ä¸å¹²æ‰°çš„å®¹å™¨ã€‚
+¿ÉÒÔ´ÓÒ»¸ö¾µÏñ´´½¨¶à¸ö¸ôÀëµÄ»¥²»¸ÉÈÅµÄÈİÆ÷¡£
 
-åˆ†é…ä¸€ä¸ªè¯»å†™åŒºä½œä¸ºæœ€åä¸€å±‚ã€‚
+·ÖÅäÒ»¸ö¶ÁĞ´Çø×÷Îª×îºóÒ»²ã¡£
 
-ç½‘ç»œé»˜è®¤ç›´æ¥ä½¿ç”¨NATè½¬æ¢ã€‚
+ÍøÂçÄ¬ÈÏÖ±½ÓÊ¹ÓÃNAT×ª»»¡£
+
+** ²Ö¿â
+
+*** ¹«ÓĞ²Ö¿â
+
+×î´óµÄ¹«¿ª²Ö¿âÊÇDocker Hub
+
+ÑİÊ¾Ìá½»¾µÏñµ½Docker Hub
+
+¹úÄÚDocker Hub²Ö¿â¾µÏñ·şÎñÆ÷£¬Í¬Ê±Ò²¿ÉÒÔÉÏ´«×Ô¼ºµÄ¾µÏñ
+
+°¢Àï[[https://dev.aliyun.com/search.html][https://dev.aliyun.com/search.html]]
+
+*** Ë½ÓĞ²Ö¿â
+
+dockerÈİÆ÷µÄ·½Ê½½øĞĞ²¿Êğ£¬¿Í»§¶ËÌí¼ÓË½ÓĞ²Ö¿âµØÖ·¡£
+
+**** ¿Í»§¶Ë
+
+# Ìí¼ÓÕâÒ»ĞĞ
+
+#+begin_src sh
+
+ADD_REGISTRY='--add-registry 192.168.1.136:5000'
+
+#+end_src
+
+**** ·şÎñ¶Ë
+
+ÌáÊ¾https
+
+ĞèÒªÔÚ·şÎñ¶ËµÄdockerÅäÖÃÎÄ¼şÉÏÌí¼ÓÅäÖÃ²ÎÊı
+
+centos7ÏÂÎ»ÖÃÎª/etc/sysconfig/docker
+
+#+begin_src sh
+
+OPTIONS='--selinux-enabled=false --log-driver=journald --insecure-registry 192.168.1.136:5000'
+
+#+end_src
+
+***** ±¾µØ²Ö¿â
+
+#+begin_src sh
+$ docker run -d -p 5000:5000 --restart always --name registry registry:2
+#+end_src
+
+¿ÉÒÔ±¾µØÊ¹ÓÃ²Ö¿â
+
+#+begin_src sh
+
+$ docker pull ubuntu
+$ docker tag ubuntu localhost:5000/ubuntu
+$ docker push localhost:5000/ubuntu
+
+#+end_src
 
 
-** ä»“åº“
+*****  Ô¶³Ì²Ö¿â
 
-*** å…¬æœ‰ä»“åº“
+ËŞÖ÷»úµÄ·À»ğÇ½¿ªÍ¨¶Ë¿Ú£¬dockerÈİÆ÷×öºÃ²ÎÊıÅäÖÃ¼´¿É¡£
 
-æœ€å¤§çš„å…¬å¼€ä»“åº“æ˜¯Docker Hub
+#+begin_src sh
 
-æ¼”ç¤ºæäº¤é•œåƒåˆ°Docker Hub
+iptables -I INPUT 1 -p tcp --dport 5000 -j ACCEPT
 
-å›½å†…Docker Hubä»“åº“é•œåƒæœåŠ¡å™¨ï¼ŒåŒæ—¶ä¹Ÿå¯ä»¥ä¸Šä¼ è‡ªå·±çš„é•œåƒ
+/etc/sysconfig/docker
 
-é˜¿é‡Œ[[https://dev.aliyun.com/search.html][https://dev.aliyun.com/search.html]]
+OPTIONS='--insecure-registry 192.168.1.136:5000'    #CentOS 7ÏµÍ³
 
-*** ç§æœ‰ä»“åº“
+other_args='--insecure-registry 192.168.1.136:5000' #CentOS 6ÏµÍ³
 
-è‡ªå·±æ­å»º
+#+end_src
 
-** SERVICES
+UbuntuÏÂ
 
-swarm
+#+begin_src sh
 
-* æ•°æ®ç®¡ç†
-** é•œåƒæ–‡ä»¶ç³»ç»Ÿ
-** æŒ‚è½½
+sudo vi /etc/init/docker.conf
 
-* ç½‘ç»œç®¡ç†
+¨Cinsecure-registry 192.168.1.136:5000
+
+#+end_src
+
+ÖØÆôdocker
+
+¾í¹ÒÔØ
+
+#+begin_src sh
+
+$ sudo docker run -d -p 5000:5000 -v /opt/data/registry:/tmp/registry registry
+
+#+end_src
+
+²éÑ¯
+
+Èç¹ûÎÒÃÇÏëÒª²éÑ¯Ë½ÓĞ²Ö¿âÖĞµÄËùÓĞ¾µÏñ£¬Ê¹ÓÃdocker searchÃüÁî£º
+
+#+begin_src sh
+
+# docker search registry_ip:5000/
+
+#+end_src
+
+Èç¹ûÒª²éÑ¯²Ö¿âÖĞÖ¸¶¨ÕË»§ÏÂµÄ¾µÏñ£¬ÔòÊ¹ÓÃÈçÏÂÃüÁî£º
+
+#+begin_src sh
+
+# docker search registry_ip:5000/account/
+
+#+end_src
+
+Í¬Ê±Ò²¿ÉÒÔÖ¸¶¨¾µÏñ²éÑ¯¡£
+
+Í£Ö¹²Ö¿â
+
+#+begin_src sh
+
+$ docker stop registry && docker rm -v registry
+
+#+end_src
+
