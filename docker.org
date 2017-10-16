@@ -158,6 +158,136 @@ Commands:
 
 #+end_src
 
+docker run ：创建一个新的容器并运行一个命令
+
+-a stdin: 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项
+
+-d: 后台运行容器，并返回容器ID
+
+-i: 以交互模式运行容器，通常与 -t 同时使用
+
+-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用
+
+--name="nginx": 为容器指定一个名称
+
+--dns 8.8.8.8: 指定容器使用的DNS服务器，默认和宿主一致
+
+--dns-search example.com: 指定容器DNS搜索域名，默认和宿主一致
+
+-h "vker": 指定容器的Hostname
+
+-e username="ritchie": 设置环境变量
+
+--env-file=[]: 从指定文件读入环境变量
+
+--cpuset="0-2" or --cpuset="0,1,2": 绑定容器到指定CPU运行
+
+-m :设置容器使用内存最大值
+
+--net="bridge": 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型
+
+--link=[]: 添加链接到另一个容器
+
+--expose=[]: 开放一个端口或一组端口
+
+docker create ：创建一个新的容器但不启动它
+
+docker exec ：在运行的容器中执行命令
+
+-d :分离模式: 在后台运行
+
+-i :即使没有附加也保持STDIN 打开
+
+-t :分配一个伪终端
+
+docker inspect : 获取容器/镜像的元数据。
+
+docker top :查看容器中运行的进程信息，支持 ps 命令参数。
+
+查看所有运行容器的进程信息。
+
+#+begin_src sh
+
+for i in  `docker ps |grep Up|awk '{print $1}'`;do echo \ &&docker top $i; done
+
+#+end_src
+
+docker attach :连接到正在运行中的容器。
+
+docker events : 从服务器获取实时事件
+
+-f ：根据条件过滤事件
+
+--since ：从指定的时间戳后显示所有事件
+
+--until ：流水时间显示到指定的时间为止
+
+docker logs : 获取容器的日志
+
+-f : 跟踪日志输出
+
+--since :显示某个开始时间的所有日志
+
+-t : 显示时间戳
+
+--tail :仅列出最新N条容器日志
+
+docker wait : 阻塞运行直到容器停止，然后打印出它的退出代码。
+
+docker port :列出指定的容器的端口映射，或者查找将PRIVATE_PORT NAT到面向公众的端口。
+
+docker cp :用于容器与主机之间的数据拷贝。
+
+docker diff : 检查容器里文件结构的更改。
+
+docker history : 查看指定镜像的创建历史。
+
+-H :以可读的格式打印镜像大小和日期，默认为true
+
+--no-trunc :显示完整的提交记录
+
+-q :仅列出提交记录ID
+
+docker build : 使用Dockerfile创建镜像。
+
+--build-arg=[] :设置镜像创建时的变量
+
+--cpu-shares :设置 cpu 使用权重
+
+--cpu-period :限制 CPU CFS周期
+
+--cpu-quota :限制 CPU CFS配额
+
+--cpuset-cpus :指定使用的CPU id
+
+--cpuset-mems :指定使用的内存 id
+
+--disable-content-trust :忽略校验，默认开启
+
+-f :指定要使用的Dockerfile路径
+
+--force-rm :设置镜像过程中删除中间容器
+
+--isolation :使用容器隔离技术
+
+--label=[] :设置镜像使用的元数据
+
+-m :设置内存最大值
+
+--memory-swap :设置Swap的最大值为内存+swap，"-1"表示不限swap
+
+--no-cache :创建镜像的过程不使用缓存
+
+--pull :尝试去更新镜像的新版本
+
+-q :安静模式，成功后只输出镜像ID
+
+--rm :设置镜像成功后删除中间容器
+
+--shm-size :设置/dev/shm的大小，默认值是64M
+
+--ulimit :Ulimit配置。
+
 #+begin_src sh
 
 [root@localhost user]# docker info
@@ -456,41 +586,25 @@ clearlinux:针对intel架构优化，面向云端的linux系统。
 
 练习alpine环境下运行golang web程序
 
-最佳实践
+Dockerfile最佳实践
 
-1.把维护者和更新系统的命令依次写在最上方
+.把维护者和更新系统的命令依次写在最上方,更新最好直接从上层镜像继承。
 
-2.使用标签管理 Dockerfile
+.使用标签管理Dockerfile。
 
-3.避免映射公共端口，映射端口并不属于 Dockerfile 的工作范围
+.避免映射公共端口。
 
-4.使用类似 array 形式的 CMD 和 ENTRYPOINT
+.使用类似array形式的CMD和ENTRYPOINT。
 
-5.使用.dockerignore文件,为了在docker build过程中更快上传和更加高效，
+.使用.dockerignore文件,应该使用一个.dockerignore文件用来排除构建镜像时不需要的文件或目录。
 
-应该使用一个.dockerignore文件用来排除构建镜像时不需要的文件或目录。
+.避免安装不必要的软件包,为了降低复杂性、依赖性、文件大小以及构建时间，应该避免安装额外的或不必要的包。
 
-例如,除非.git在构建过程中需要用到，否则你应该将它添加到.dockerignore文件中，这样可以节省很多时间。
+.每个容器都跑一个进程,解耦应用到多个容器使其更容易横向扩展和重用。
 
-6 避免安装不必要的软件包
+.最小化层,我们知道每执行一个指令，都会有一次镜像的提交，镜像是分层的结构，对于Dockerfile，应该找到可读性和最小化层之间的平衡。
 
-为了降低复杂性、依赖性、文件大小以及构建时间，应该避免安装额外的或不必要的包。
-
-7 每个容器都跑一个进程
-
-在大多数情况下，一个容器应该只单独跑一个程序。
-
-解耦应用到多个容器使其更容易横向扩展和重用。
-
-如果一个服务依赖另外一个服务，可以参考 Linking Containers Together。
-
-8 最小化层
-
-我们知道每执行一个指令，都会有一次镜像的提交，镜像是分层的结构，对于Dockerfile，应该找到可读性和最小化层之间的平衡。
-
-9 多行参数排序
-
-如果可能，通过字母顺序来排序，这样可以避免安装包的重复并且更容易更新列表，另外可读性也会更强，添加一个空行使用\换行:
+.多行参数排序,如果可能，通过字母顺序来排序，这样可以避免安装包的重复并且更容易更新列表，另外可读性也会更强，添加一个空行使用\换行:
 
 #+bengin_src sh
 RUN apt-get update && apt-get install -y \
@@ -501,11 +615,11 @@ RUN apt-get update && apt-get install -y \
   subversion
 #+enf_src
 
-10 创建缓存
+.创建缓存
 
-镜像构建过程中会按照Dockerfile的顺序依次执行，每执行一次指令 Docker 会寻找是否有存在的镜像缓存可复用.
+镜像构建过程中会按照Dockerfile的顺序依次执行，每执行一次指令Docker会寻找是否有存在的镜像缓存可复用,如果没有则创建新的镜像。
 
-如果没有则创建新的镜像。如果不想使用缓存，则可以在docker build时添加--no-cache=true选项。
+如果不想使用缓存，则可以在docker build时添加--no-cache=true选项。
 
 从基础镜像开始就已经在缓存中了，下一个指令会对比所有的子镜像寻找是否执行相同的指令，如果没有则缓存失效。
 
@@ -513,15 +627,17 @@ RUN apt-get update && apt-get install -y \
 
 ADD和COPY指令除外，执行ADD和COPY时存放到镜像的文件也是需要检查的，完成一个文件的校验之后再利用这个校验在缓存中查找
 
-，如果检测的文件改变则缓存失效。RUN apt-get -y update命令只检查命令是否匹配，如果匹配就不会再执行更新了。
+，如果检测的文件改变则缓存失效。
 
-为了有效地利用缓存，你需要保持你的 Dockerfile 一致，并且尽量在末尾修改。
+RUN apt-get -y update命令只检查命令是否匹配，如果匹配就不会再执行更新了。
+
+为了有效地利用缓存，你需要保持你的Dockerfile一致，并且尽量在末尾修改。
 
 FROM: 只要可能就使用官方镜像库作为基础镜像
 
 RUN: 为保持可读性、方便理解、可维护性，把长或者复杂的RUN语句使用\分隔符分成多行
 
-不建议RUN apt-get update独立成行，否则如果后续包有更新，那么也不会再执行更新
+不建议RUN apt-get update独立成行，否则如果后续包有更新，那么也不会再执行更新。
 
 避免使用RUN apt-get upgrade或者dist-upgrade，很多必要的包在一个非privileged权限的容器里是无法升级的。如果知道某个包更新，使用apt-get install -y xxx
 
@@ -533,58 +649,13 @@ RUN apt-get update && apt-get install -y package-bar package-foo
 
 #+end_src
 
-例子:
-
-#+begin_src sh
-
-RUN apt-get update && apt-get install -y \
-
-    aufs-tools \
-
-    automake \
-
-    btrfs-tools \
-
-    build-essential \
-
-    curl \
-
-    dpkg-sig \
-
-    git \
-
-    iptables \
-
-    libapparmor-dev \
-
-    libcap-dev \
-
-    libsqlite3-dev \
-
-    lxc=1.0* \
-
-    mercurial \
-
-    parallel \
-
-    reprepro \
-
-    ruby1.9.1 \
-
-    ruby1.9.1-dev \
-
-    s3cmd=1.1.0*
-
-#+end_src
-
 CMD: 推荐使用CMD [“executable”, “param1”, “param2”…]这种格式，CMD [“param”, “param”]则配合ENTRYPOINT使用
 
-EXPOSE: Dockerfile 指定要公开的端口，使用docker run时指定映射到宿主机的端口即可
+EXPOSE: Dockerfile 指定要公开的端口，使用docker run时指定映射到宿主机的端口即可.
 
 ENV: 为了使新的软件更容易运行，可以使用ENV更新PATH变量。如ENV PATH /usr/local/nginx/bin:$PATH确保CMD ["nginx"]即可运行
 
 ENV也可以这样定义变量：
-
 
 #+begin_src sh
 
@@ -684,7 +755,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 docker容器的方式进行部署，客户端添加私有仓库地址。
 
-**** 客户端
+客户端
 
 # 添加这一行
 
