@@ -395,9 +395,27 @@ func main() {
 
 *** Parser directives
 
+#+begin_src sh
+
+#directive=value
+# directive =value
+#	directive= value
+# directive = value
+#	  dIrEcTiVe=value
+
+#+end_src
+
 *** escape
 
+#+begin_src sh
+
+# escape=\ (backslash)
+
+#+end_src
+
 *** ENV
+
+#+begin_src sh
 
 ADD
 
@@ -420,6 +438,9 @@ VOLUME
 WORKDIR
 
 ONBUILD组合
+
+#+end_src
+
 
 *** .dockerignore
 
@@ -518,11 +539,181 @@ RUN ["/bin/bash", "-c", "echo hello"]
 
 # exec 格式是json 所以用"符号 不要使用单引号'
 
+RUN [ "echo", "$HOME" ] #shell不执行，HOME不被替换
+
+RUN [ "sh", "-c", "echo $HOME" ]
+
+#RUN ["c:\windows\system32\tasklist.exe"] 转义
+
+["c:\\windows\\system32\\tasklist.exe"]
+
+#缓存起作用，禁用缓存docker build --no-cache
+
+RUN apt-get dist-upgrade -y
+
+#+end_src
+
+*** CMD
+
+#+begin_src sh
+
+CMD ["executable","param1","param2"] (exec form, this is the preferred form)
+CMD ["param1","param2"] (as default parameters to ENTRYPOINT)
+CMD command param1 param2 (shell form)
+
+#+end_src
+
+一个Dockerfile仅仅最后一个CMD起作用
+
+为执行容器提供缺省值，执行文件或者没有执行文件(ENTRYPOINT提供)
+
+如果CMD配合ENTRYPOINT那么他们的格式都需要是json数组格式，CMD用来提供参数。
+
+CMD非参数模式，shell exec 当运行一个镜像的时候会执行。
+
+shell格式 相当于指令在/bin/sh -c执行，如果不想使用shell格式，就需要使用数组格式，参数为单独字符串
+
+#+begin_src sh
+
+FROM ubuntu
+
+CMD echo "This is a test." | wc -
+
+#+end_src
+
+#+begin_src sh
+
+FROM ubuntu
+#需要程序地址
+CMD ["/usr/bin/wc","--help"]
+
+#+end_src
+
+如果容器每次都执行则考虑CMD和ENTRYPOINT结合
+
+docker run覆盖CMD
+
+RUN镜像构建，并提交交结果。CMD构建阶段不执行，提供了镜像预期指令。
+
+*** LABEL
+
+#+begin_src sh
+
+LABEL <key>=<value> <key>=<value> <key>=<value> ...
+
+#+end_src
+
+#+begin_src sh
+
+#一个LABEL指令一层，尽量合并为一个指令，同名覆盖
+LABEL "com.example.vendor"="ACME Incorporated"
+LABEL com.example.label-with-value="foo"
+LABEL version="1.0"
+LABEL description="This text illustrates \
+that label-values can span multiple lines."
+
+LABEL maintainer="SvenDowideit@home.org.au"
+
+#+end_src
+
+docker inspect查看images的LABEL
+
+#+begin_src sh
+
+"Labels": {
+    "com.example.vendor": "ACME Incorporated"
+    "com.example.label-with-value": "foo",
+    "version": "1.0",
+    "description": "This text illustrates that label-values can span multiple lines.",
+    "multi.label1": "value1",
+    "multi.label2": "value2",
+    "other": "value3"
+},
+
+#+end_src
+
+*** EXPOSE
+
+#+begin_src sh
+
+EXPOSE <port> [<port>/<protocol>...]
+
+#+end_src
+
+容器监听的端口，可以指定TCP或UDP，默认是TCP，并没有发布该端口。
+
+它作为构建映像的人和运行容器的人之间的一种文档类型。
+
+发布该端口，-p标志来发布和映射一个或多个端口。
+
+如果容器间设置EXPOSE和公开端口通信，可以参考docker network
+
+*** ENV
+
+#+begin_src sh
+#第一个空格后为值
+ENV <key> <value>
+#可以
+ENV <key>=<value> ...
+
+#+end_src
+
+#+begin_src sh
+
+ENV myName="John Doe" myDog=Rex\ The\ Dog \
+    myCat=fluffy
+
+#+end_src
+
+#+begin_src sh
+
+ENV myName John Doe
+ENV myDog Rex The Dog
+ENV myCat fluffy
+
+#+end_src
+
+结果相同，但是第一个只有一层
+
+docker run --env <key>=<value>
+
+指令一次性
+
+#+begin_src sh
+
+RUN <key>=<value> <command>
+
+#+end_src
+
+*** ADD
+
+#+begin_src sh
+
+ADD <src>... <dest>
+ADD ["<src>",... "<dest>"] (this form is required for paths containing whitespace)
+
+#+end_src
+
+src 文件 路径 URL
+
+dest 绝对路基或者OWRKDIR的相对路径
+
+Dockerfile源码 支持Go’s filepath.Match规则
+
+#+begin_src sh
+
+ADD hom* /mydir/        # adds all files starting with "hom"
+ADD hom?.txt /mydir/    # ? is replaced with any single character, e.g., "home.txt"
+
 #+end_src
 
 
+#+begin_src sh
 
-Dockerfile源码
+ADD test relativeDir/          # adds "test" to `WORKDIR`/relativeDir/
+ADD test /absoluteDir/         # adds "test" to /absoluteDir/
+
+#+end_src
 
 #+begin_src sh
 

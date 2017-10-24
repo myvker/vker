@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>一步步精通Docker容器实战</title>
-<!-- 2017-10-24 周二 13:55 -->
+<!-- 2017-10-24 周二 17:02 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
@@ -184,8 +184,13 @@ for the JavaScript code in this tag.
 <li><a href="#sec-5-3-4">5.3.4. .dockerignore</a></li>
 <li><a href="#sec-5-3-5">5.3.5. FROM</a></li>
 <li><a href="#sec-5-3-6">5.3.6. RUN</a></li>
-<li><a href="#sec-5-3-7">5.3.7. 参考镜像</a></li>
-<li><a href="#sec-5-3-8">5.3.8. Dockerfile最佳实践</a></li>
+<li><a href="#sec-5-3-7">5.3.7. CMD</a></li>
+<li><a href="#sec-5-3-8">5.3.8. LABEL</a></li>
+<li><a href="#sec-5-3-9">5.3.9. EXPOSE</a></li>
+<li><a href="#sec-5-3-10">5.3.10. ENV</a></li>
+<li><a href="#sec-5-3-11">5.3.11. ADD</a></li>
+<li><a href="#sec-5-3-12">5.3.12. 参考镜像</a></li>
+<li><a href="#sec-5-3-13">5.3.13. Dockerfile最佳实践</a></li>
 </ul>
 </li>
 <li><a href="#sec-5-4">5.4. 容器</a></li>
@@ -755,60 +760,61 @@ func main() {
 
 <div id="outline-container-sec-5-3-1" class="outline-4">
 <h4 id="sec-5-3-1"><span class="section-number-4">5.3.1</span> Parser directives</h4>
+<div class="outline-text-4" id="text-5-3-1">
+<div class="org-src-container">
+
+<pre class="src src-sh">#directive=value
+# directive =value
+#       directive= value
+# directive = value
+#         dIrEcTiVe=value
+</pre>
+</div>
+</div>
 </div>
 
 <div id="outline-container-sec-5-3-2" class="outline-4">
 <h4 id="sec-5-3-2"><span class="section-number-4">5.3.2</span> escape</h4>
+<div class="outline-text-4" id="text-5-3-2">
+<div class="org-src-container">
+
+<pre class="src src-sh"># escape=\ (backslash)
+</pre>
+</div>
+</div>
 </div>
 
 <div id="outline-container-sec-5-3-3" class="outline-4">
 <h4 id="sec-5-3-3"><span class="section-number-4">5.3.3</span> ENV</h4>
 <div class="outline-text-4" id="text-5-3-3">
-<p>
-ADD
-</p>
+<div class="org-src-container">
 
-<p>
+<pre class="src src-sh">ADD
+
 COPY
-</p>
 
-<p>
 ENV
-</p>
 
-<p>
 EXPOSE
-</p>
 
-<p>
 FROM
-</p>
 
-<p>
 LABEL
-</p>
 
-<p>
 STOPSIGNAL
-</p>
 
-<p>
 USER
-</p>
 
-<p>
 VOLUME
-</p>
 
-<p>
 WORKDIR
-</p>
 
-<p>
 ONBUILD组合
-</p>
+</pre>
 </div>
 </div>
+</div>
+
 
 <div id="outline-container-sec-5-3-4" class="outline-4">
 <h4 id="sec-5-3-4"><span class="section-number-4">5.3.4</span> .dockerignore</h4>
@@ -917,14 +923,236 @@ RUN /bin/bash -c 'source $HOME/.bashrc; echo $HOME'
 RUN ["/bin/bash", "-c", "echo hello"]
 
 # exec 格式是json 所以用"符号 不要使用单引号'
+
+RUN [ "echo", "$HOME" ] #shell不执行，HOME不被替换
+
+RUN [ "sh", "-c", "echo $HOME" ]
+
+#RUN ["c:\windows\system32\tasklist.exe"] 转义
+
+["c:\\windows\\system32\\tasklist.exe"]
+
+#缓存起作用，禁用缓存docker build --no-cache
+
+RUN apt-get dist-upgrade -y
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3-7" class="outline-4">
+<h4 id="sec-5-3-7"><span class="section-number-4">5.3.7</span> CMD</h4>
+<div class="outline-text-4" id="text-5-3-7">
+<div class="org-src-container">
+
+<pre class="src src-sh">CMD ["executable","param1","param2"] (exec form, this is the preferred form)
+CMD ["param1","param2"] (as default parameters to ENTRYPOINT)
+CMD command param1 param2 (shell form)
+</pre>
+</div>
+
+<p>
+一个Dockerfile仅仅最后一个CMD起作用
+</p>
+
+<p>
+为执行容器提供缺省值，执行文件或者没有执行文件(ENTRYPOINT提供)
+</p>
+
+<p>
+如果CMD配合ENTRYPOINT那么他们的格式都需要是json数组格式，CMD用来提供参数。
+</p>
+
+<p>
+CMD非参数模式，shell exec 当运行一个镜像的时候会执行。
+</p>
+
+<p>
+shell格式 相当于指令在/bin/sh -c执行，如果不想使用shell格式，就需要使用数组格式，参数为单独字符串
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">FROM ubuntu
+
+CMD echo "This is a test." | wc -
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">FROM ubuntu
+#需要程序地址
+CMD ["/usr/bin/wc","--help"]
+</pre>
+</div>
+
+<p>
+如果容器每次都执行则考虑CMD和ENTRYPOINT结合
+</p>
+
+<p>
+docker run覆盖CMD
+</p>
+
+<p>
+RUN镜像构建，并提交交结果。CMD构建阶段不执行，提供了镜像预期指令。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3-8" class="outline-4">
+<h4 id="sec-5-3-8"><span class="section-number-4">5.3.8</span> LABEL</h4>
+<div class="outline-text-4" id="text-5-3-8">
+<div class="org-src-container">
+
+<pre class="src src-sh">LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">#一个LABEL指令一层，尽量合并为一个指令，同名覆盖
+LABEL "com.example.vendor"="ACME Incorporated"
+LABEL com.example.label-with-value="foo"
+LABEL version="1.0"
+LABEL description="This text illustrates \
+that label-values can span multiple lines."
+
+LABEL maintainer="SvenDowideit@home.org.au"
+</pre>
+</div>
+
+<p>
+docker inspect查看images的LABEL
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">"Labels": {
+    "com.example.vendor": "ACME Incorporated"
+    "com.example.label-with-value": "foo",
+    "version": "1.0",
+    "description": "This text illustrates that label-values can span multiple lines.",
+    "multi.label1": "value1",
+    "multi.label2": "value2",
+    "other": "value3"
+},
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3-9" class="outline-4">
+<h4 id="sec-5-3-9"><span class="section-number-4">5.3.9</span> EXPOSE</h4>
+<div class="outline-text-4" id="text-5-3-9">
+<div class="org-src-container">
+
+<pre class="src src-sh">EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]
+</pre>
+</div>
+
+<p>
+容器监听的端口，可以指定TCP或UDP，默认是TCP，并没有发布该端口。
+</p>
+
+<p>
+它作为构建映像的人和运行容器的人之间的一种文档类型。
+</p>
+
+<p>
+发布该端口，-p标志来发布和映射一个或多个端口。
+</p>
+
+<p>
+如果容器间设置EXPOSE和公开端口通信，可以参考docker network
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3-10" class="outline-4">
+<h4 id="sec-5-3-10"><span class="section-number-4">5.3.10</span> ENV</h4>
+<div class="outline-text-4" id="text-5-3-10">
+<div class="org-src-container">
+
+<pre class="src src-sh">#第一个空格后为值
+ENV &lt;key&gt; &lt;value&gt;
+#可以
+ENV &lt;key&gt;=&lt;value&gt; ...
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">ENV myName="John Doe" myDog=Rex\ The\ Dog \
+    myCat=fluffy
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">ENV myName John Doe
+ENV myDog Rex The Dog
+ENV myCat fluffy
+</pre>
+</div>
+
+<p>
+结果相同，但是第一个只有一层
+</p>
+
+<p>
+docker run &#x2013;env &lt;key&gt;=&lt;value&gt;
+</p>
+
+<p>
+指令一次性
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">RUN &lt;key&gt;=&lt;value&gt; &lt;command&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3-11" class="outline-4">
+<h4 id="sec-5-3-11"><span class="section-number-4">5.3.11</span> ADD</h4>
+<div class="outline-text-4" id="text-5-3-11">
+<div class="org-src-container">
+
+<pre class="src src-sh">ADD &lt;src&gt;... &lt;dest&gt;
+ADD ["&lt;src&gt;",... "&lt;dest&gt;"] (this form is required for paths containing whitespace)
+</pre>
+</div>
+
+<p>
+src 文件 路径 URL
+</p>
+
+<p>
+dest 绝对路基或者OWRKDIR的相对路径
+</p>
+
+<p>
+Dockerfile源码 支持Go’s filepath.Match规则
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">ADD hom* /mydir/        # adds all files starting with "hom"
+ADD hom?.txt /mydir/    # ? is replaced with any single character, e.g., "home.txt"
 </pre>
 </div>
 
 
+<div class="org-src-container">
 
-<p>
-Dockerfile源码
-</p>
+<pre class="src src-sh">ADD test relativeDir/          # adds "test" to `WORKDIR`/relativeDir/
+ADD test /absoluteDir/         # adds "test" to /absoluteDir/
+</pre>
+</div>
 
 <div class="org-src-container">
 
@@ -997,9 +1225,9 @@ busybox             latest              54511612f1c4        2 weeks ago         
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-7" class="outline-4">
-<h4 id="sec-5-3-7"><span class="section-number-4">5.3.7</span> 参考镜像</h4>
-<div class="outline-text-4" id="text-5-3-7">
+<div id="outline-container-sec-5-3-12" class="outline-4">
+<h4 id="sec-5-3-12"><span class="section-number-4">5.3.12</span> 参考镜像</h4>
+<div class="outline-text-4" id="text-5-3-12">
 <p>
 scratch:一个空镜像，特别是用于“从头开始”构建镜像。
 </p>
@@ -1026,9 +1254,9 @@ clearlinux:针对intel架构优化，面向云端的linux系统。
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-8" class="outline-4">
-<h4 id="sec-5-3-8"><span class="section-number-4">5.3.8</span> Dockerfile最佳实践</h4>
-<div class="outline-text-4" id="text-5-3-8">
+<div id="outline-container-sec-5-3-13" class="outline-4">
+<h4 id="sec-5-3-13"><span class="section-number-4">5.3.13</span> Dockerfile最佳实践</h4>
+<div class="outline-text-4" id="text-5-3-13">
 <p>
 .把维护者
 </p>
@@ -1432,7 +1660,7 @@ Ubuntu下
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2017-10-24 周二 13:55</p>
+<p class="date">Created: 2017-10-24 周二 17:02</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
