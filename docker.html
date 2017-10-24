@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>一步步精通Docker容器实战</title>
-<!-- 2017-10-22 周日 11:02 -->
+<!-- 2017-10-24 周二 13:55 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
@@ -178,8 +178,14 @@ for the JavaScript code in this tag.
 <li><a href="#sec-5-2">5.2. 指令</a></li>
 <li><a href="#sec-5-3">5.3. 镜像</a>
 <ul>
-<li><a href="#sec-5-3-1">5.3.1. 参考镜像</a></li>
-<li><a href="#sec-5-3-2">5.3.2. Dockerfile最佳实践</a></li>
+<li><a href="#sec-5-3-1">5.3.1. Parser directives</a></li>
+<li><a href="#sec-5-3-2">5.3.2. escape</a></li>
+<li><a href="#sec-5-3-3">5.3.3. ENV</a></li>
+<li><a href="#sec-5-3-4">5.3.4. .dockerignore</a></li>
+<li><a href="#sec-5-3-5">5.3.5. FROM</a></li>
+<li><a href="#sec-5-3-6">5.3.6. RUN</a></li>
+<li><a href="#sec-5-3-7">5.3.7. 参考镜像</a></li>
+<li><a href="#sec-5-3-8">5.3.8. Dockerfile最佳实践</a></li>
 </ul>
 </li>
 <li><a href="#sec-5-4">5.4. 容器</a></li>
@@ -656,12 +662,41 @@ busybox             latest              54511612f1c4        2 weeks ago         
 Dockerfile
 </p>
 
+<p>
+PATH URL
+</p>
+
+<p>
+-f指定路径
+</p>
+
+<p>
+可多次-t构建多个
+</p>
+
+<p>
+.dockerignore
+</p>
+
+<p>
+注意上下文路径
+</p>
+
+<p>
+层层构建并提交，自动清理。RUN cd /tmp 不会构建
+</p>
+
+<p>
+cache和本地本地父链有关。
+</p>
+
+<p>
+INSTRUCTION arguments
+</p>
+
 <div class="org-src-container">
 
-<pre class="src src-sh"># Comment
-INSTRUCTION arguments
-
-FROM
+<pre class="src src-sh">FROM
 RUN
 CMD
 LABEL
@@ -715,6 +750,177 @@ func main() {
 }
 </pre>
 </div>
+</div>
+
+
+<div id="outline-container-sec-5-3-1" class="outline-4">
+<h4 id="sec-5-3-1"><span class="section-number-4">5.3.1</span> Parser directives</h4>
+</div>
+
+<div id="outline-container-sec-5-3-2" class="outline-4">
+<h4 id="sec-5-3-2"><span class="section-number-4">5.3.2</span> escape</h4>
+</div>
+
+<div id="outline-container-sec-5-3-3" class="outline-4">
+<h4 id="sec-5-3-3"><span class="section-number-4">5.3.3</span> ENV</h4>
+<div class="outline-text-4" id="text-5-3-3">
+<p>
+ADD
+</p>
+
+<p>
+COPY
+</p>
+
+<p>
+ENV
+</p>
+
+<p>
+EXPOSE
+</p>
+
+<p>
+FROM
+</p>
+
+<p>
+LABEL
+</p>
+
+<p>
+STOPSIGNAL
+</p>
+
+<p>
+USER
+</p>
+
+<p>
+VOLUME
+</p>
+
+<p>
+WORKDIR
+</p>
+
+<p>
+ONBUILD组合
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3-4" class="outline-4">
+<h4 id="sec-5-3-4"><span class="section-number-4">5.3.4</span> .dockerignore</h4>
+<div class="outline-text-4" id="text-5-3-4">
+<div class="org-src-container">
+
+<pre class="src src-sh"># comment
+*/temp*
+*/*/temp*
+temp?
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">*.md
+!README.md
+</pre>
+</div>
+
+
+<div class="org-src-container">
+
+<pre class="src src-sh">*.md
+!README*.md
+README-secret.md
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">*.md
+README-secret.md
+!README*.md
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3-5" class="outline-4">
+<h4 id="sec-5-3-5"><span class="section-number-4">5.3.5</span> FROM</h4>
+<div class="outline-text-4" id="text-5-3-5">
+<div class="org-src-container">
+
+<pre class="src src-sh">FROM &lt;image&gt; [AS &lt;name&gt;]
+
+FROM &lt;image&gt;[:&lt;tag&gt;] [AS &lt;name&gt;]
+
+FROM &lt;image&gt;[@&lt;digest&gt;] [AS &lt;name&gt;]
+</pre>
+</div>
+
+<p>
+ARG是唯一一个可用于FROM前的指令
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">ARG  CODE_VERSION=latest
+FROM base:${CODE_VERSION}
+CMD  /code/run-app
+
+FROM extras:${CODE_VERSION}
+CMD  /code/run-extras
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">ARG VERSION=latest
+FROM busybox:$VERSION
+ARG VERSION
+RUN echo $VERSION &gt; image_version
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3-6" class="outline-4">
+<h4 id="sec-5-3-6"><span class="section-number-4">5.3.6</span> RUN</h4>
+<div class="outline-text-4" id="text-5-3-6">
+<div class="org-src-container">
+
+<pre class="src src-sh">RUN &lt;command&gt; (shell form, the command is run in a shell, which by default is /bin/sh -c on Linux or cmd /S /C on Windows)
+
+RUN ["executable", "param1", "param2"] (exec form)
+</pre>
+</div>
+
+<p>
+shell形式，\（反斜杠）将单个RUN指令继续到下一行。
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">RUN /bin/bash -c 'source $HOME/.bashrc; \
+
+echo $HOME'
+
+#功能同下边
+
+RUN /bin/bash -c 'source $HOME/.bashrc; echo $HOME'
+
+#选不同的shell
+
+RUN ["/bin/bash", "-c", "echo hello"]
+
+# exec 格式是json 所以用"符号 不要使用单引号'
+</pre>
+</div>
+
+
 
 <p>
 Dockerfile源码
@@ -789,10 +995,11 @@ busybox             latest              54511612f1c4        2 weeks ago         
 演示构建简单镜像并留作业
 </p>
 </div>
+</div>
 
-<div id="outline-container-sec-5-3-1" class="outline-4">
-<h4 id="sec-5-3-1"><span class="section-number-4">5.3.1</span> 参考镜像</h4>
-<div class="outline-text-4" id="text-5-3-1">
+<div id="outline-container-sec-5-3-7" class="outline-4">
+<h4 id="sec-5-3-7"><span class="section-number-4">5.3.7</span> 参考镜像</h4>
+<div class="outline-text-4" id="text-5-3-7">
 <p>
 scratch:一个空镜像，特别是用于“从头开始”构建镜像。
 </p>
@@ -819,9 +1026,9 @@ clearlinux:针对intel架构优化，面向云端的linux系统。
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-2" class="outline-4">
-<h4 id="sec-5-3-2"><span class="section-number-4">5.3.2</span> Dockerfile最佳实践</h4>
-<div class="outline-text-4" id="text-5-3-2">
+<div id="outline-container-sec-5-3-8" class="outline-4">
+<h4 id="sec-5-3-8"><span class="section-number-4">5.3.8</span> Dockerfile最佳实践</h4>
+<div class="outline-text-4" id="text-5-3-8">
 <p>
 .把维护者
 </p>
@@ -1225,7 +1432,7 @@ Ubuntu下
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2017-10-22 周日 11:02</p>
+<p class="date">Created: 2017-10-24 周二 13:55</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
