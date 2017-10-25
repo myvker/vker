@@ -675,7 +675,11 @@ ENV myCat fluffy
 
 结果相同，但是第一个只有一层
 
+#+begin_src sh
+
 docker run --env <key>=<value>
+
+#+end_src
 
 指令一次性
 
@@ -713,7 +717,55 @@ ADD hom?.txt /mydir/    # ? is replaced with any single character, e.g., "home.t
 ADD test relativeDir/          # adds "test" to `WORKDIR`/relativeDir/
 ADD test /absoluteDir/         # adds "test" to /absoluteDir/
 
+ADD arr[[]0].txt /mydir/    # copy a file named "arr[0].txt" to /mydir/
+
 #+end_src
+
+STDIN
+
+
+#+begin_src sh
+
+docker build - < somefile
+
+docker build - <archive.tar.gz
+
+#+end_src
+
+带有身份验证 可以使用RUN wget,RUN curl或容器的其他工具来下载，ADD不支持身份认证。
+
+ADD后续缓存无效
+
+ADD遵守以下规则
+
+identity, gzip, bzip2 or xz会解压，依据内容不依据后缀。
+
+URL不解压。
+
+dest最好是带/明确为目录，防止混淆。
+
+*** COPY
+
+#+begin_src sh
+
+COPY <src>... <dest>
+COPY ["<src>",... "<dest>"] (this form is required for paths containing whitespace)
+
+#样例
+COPY hom* /mydir/        # adds all files starting with "hom"
+COPY hom?.txt /mydir/    # ? is replaced with any single character, e.g., "home.txt"
+
+#样例
+COPY test relativeDir/   # adds "test" to `WORKDIR`/relativeDir/
+COPY test /absoluteDir/  # adds "test" to /absoluteDir/
+
+#转义
+COPY arr[[]0].txt /mydir/    # copy a file named "arr[0].txt" to /mydir/
+#+end_src
+
+
+
+
 
 #+begin_src sh
 
