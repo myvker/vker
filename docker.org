@@ -519,6 +519,15 @@ RUN <command> (shell form, the command is run in a shell, which by default is /b
 
 RUN ["executable", "param1", "param2"] (exec form)
 
+
+#exec形式会作为json数组进行解析，需要符号"而不是'
+
+#shell形式，环境变量会起作用(解释环境变量)
+
+#exec的shell执行，环境变量起作用
+
+#其他遵循exec shell形式的指令依然遵循。
+
 #+end_src
 
 shell形式，\（反斜杠）将单个RUN指令继续到下一行。
@@ -763,9 +772,187 @@ COPY test /absoluteDir/  # adds "test" to /absoluteDir/
 COPY arr[[]0].txt /mydir/    # copy a file named "arr[0].txt" to /mydir/
 #+end_src
 
+*** ENTRYPOINT
+
+#+begin_src sh
+
+ENTRYPOINT ["executable", "param1", "param2"] (exec form, preferred)
+
+ENTRYPOINT command param1 param2 (shell form)
+
+#+end_src
+
+PID 程序运行的临时唯一标识，可收回。
+
+容器功能表现得像一个可执行程序一样。
+
+#+begin_src sh
+
+ENTRYPOINT ["/bin/echo"] 
+
+docker run -it imageecho "this is a test"
+
+#+end_src
+
+docker run <image>的命令行参数将附跟在exec形式的ENTRYPOINT中的所有元素之后，并将覆盖使用CMD指定的所有元素。
+
+使用docker run --entrypoint标志覆盖ENTRYPOINT指令,只能使用exec格式(no sh -c will be used)。
+
+ENTRYPOINT shell形式屏蔽CMD的参数和run后的命令但是会作为"/bin/sh -c"的子进程，不是PID 1，无法接收信号，例如无法接收到docker stop
+
+镜像中最后一个ENTRYPOINT指令起作用。
+
+#+begin_src sh
+
+ENTRYPOINT exec top -b 
+
+#+end_src
+
+去掉exec将无法使用docker stop退出
+
+Dockerfile应该至少指定一个CMD或ENTRYPOINT命令。
+
+当使用容器作为可执行文件时，应该定义ENTRYPOINT。
+
+CMD应该用作定义ENTRYPOINT命令的默认参数或在容器中执行ad-hoc命令的一种方法。
+
+当运行带有替代参数的容器时，CMD将被覆盖。
+
+file:./img/docker/entcmd.svg
+
+*** VOLUME
+
+#+begin_src sh
+
+VOLUME ["/data"]
+
+VOLUME /var/log
+
+VOLUME /var/log /var/db
+
+#+end_src
+
+如果任何构建步骤在声明后更改卷中的数据，那么这些更改将被丢弃。
+
+*** USER
+
+#+begin_src sh
+
+USER <user>[:<group>] or
+USER <UID>[:<GID>]
+
+#+end_src
+
+*** WORKDIR
+
+#+begin_src sh
+
+WORKDIR /path/to/workdir
+
+#+end_src
+
+*** ARG
+
+#+begin_src sh
+
+ARG <name>[=<default value>]
+
+#+end_src
+
+docker build传递ARG值--build-arg <varname>=<value> 如果没有在Dockerfile中定义就报错。
+
+可以有默认值，构建的时候没有传递则使用默认值。
+
+不建议使用build-time变量来传递诸如github密钥，用户凭证等密码。构建时变量值使用docker history命令对图像的任何用户可见。
+
+Docker有一组预定义的ARG变量。
+
+#+begin_src sh
+
+HTTP_PROXY
+http_proxy
+HTTPS_PROXY
+https_proxy
+FTP_PROXY
+ftp_proxy
+NO_PROXY
+no_proxy
+
+#+end_src
+
+#+begin_src sh
 
 
+FROM ubuntu
+ARG CONT_IMG_VER
+ENV CONT_IMG_VER v1.0.0
+RUN echo $CONT_IMG_VER
+#Then, assume this image is built with this command:
+$ docker build --build-arg CONT_IMG_VER=v2.0.1 .
 
+
+FROM ubuntu
+ARG CONT_IMG_VER
+ENV CONT_IMG_VER ${CONT_IMG_VER:-v1.0.0}
+RUN echo $CONT_IMG_VER
+
+$ docker build .
+
+#+end_src
+
+对缓存构建有影响，ARG和ENV的区别。
+
+*** ONBUILD
+
+#+begin_src sh
+
+ONBUILD [INSTRUCTION]
+
+#+end_src
+
+指令在image被用作另一个构建的基础时,向image添加要在以后执行的*trigger*指令。
+
+trigger将在下游构建的上下文中执行，就好像它已经在下游Dockerfile中的FROM指令之后立即插入。
+
+任何构建指令都可以注册为trigger。
+
+*** STOPSIGNAL
+
+#+begin_src sh
+
+STOPSIGNAL signal
+
+#+end_src
+
+*** HEALTHCHECK
+
+#+begin_src sh
+
+HEALTHCHECK [OPTIONS] CMD command (check container health by running a command inside the container)
+
+HEALTHCHECK NONE (disable any healthcheck inherited from the base image)
+
+--interval=DURATION (default: 30s)
+--timeout=DURATION (default: 30s)
+--start-period=DURATION (default: 0s)
+--retries=N (default: 3)
+
+HEALTHCHECK --interval=5m --timeout=3s \
+  CMD curl -f http://localhost/ || exit 1
+
+#+end_src
+
+*** SHELL
+
+#+begin_src sh
+
+SHELL ["executable", "parameters"]
+
+#The default shell on Linux is ["/bin/sh", "-c"], and on Windows is ["cmd", "/S", "/C"]
+
+#+end_src
+
+*** Dockerfile examples
 
 #+begin_src sh
 
@@ -1115,3 +1302,132 @@ $ docker stop registry && docker rm -v registry
 
 #+end_src
 
+* 知识结构 
+
+1、容器
+
+容器 vs. 虚拟机
+
+容器的优势
+
+容器带来的问题
+
+容器文件系统
+
+容器网络
+
+bridge
+
+overlay
+
+容器的资源管理
+
+cgroup
+
+容器安全
+
+Docker registration
+
+搭建
+
+认证授权
+
+image管理
+
+2、Kubernetes架构
+
+Kubernetes由来
+
+Google Borg简介
+
+Why kubernetes
+
+集群管理软件应遵循的规范
+
+Kubernetes所遵循的规范
+
+技术架构
+
+组件
+
+组件间的通讯机制
+
+分布式存储
+
+3、Kubernetes安装
+
+环境准备
+
+搭建Kubernetes集群
+
+4、Kubernetes功能导览
+
+Kubernetes entities
+
+Kubernetes specs (templates)
+
+Kubernetes controllers
+
+深入了解Kubernetes内置entities
+
+集群管理者需要关注的实体
+
+应用开发者需要关注的实体
+
+5、监控解决方案
+
+健康检查与服务容错
+
+日志收集与分析
+
+监控系统构建
+
+常用数据系统构建模式
+
+Kubernetes集群中的日志系统
+
+Kubernetes集群中的监控系统
+
+6、Kubernetes高阶——设计和实现
+
+Kubernetes的数据库——etcd
+
+raft协议
+
+etcd的实现
+
+Kubernetes如何使用etcd
+
+如何构建高可用的etcd集群
+
+Kubernetes网络
+
+CNI
+
+常用网络插件比较
+
+Kubernetes调度
+
+Kubernetes调度器原理
+
+Affinity
+
+7、Kubernetes落地实践
+
+自定义Bootstrapper
+
+介绍一个自定义的cluster bootstrapper实践
+
+自定义cloud provider
+
+LB解决方案
+
+存储方案
+
+服务发现解决方案
+
+集群联邦
+
+自定义网络插件
+
+介绍一个网络插件实践
