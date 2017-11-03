@@ -40,8 +40,6 @@ $ sudo docker run hello-world
 
 file:./img/docker/docker_SaaS.png
 
-file:./img/docker/SaaS.jpg
-
 1.更快速的交付和部署
 
 2.更高效的虚拟化
@@ -65,7 +63,7 @@ file:./img/docker/Containe.png
 
 file:./img/docker/architecture.svg
 
-file:./img/docker/client_daemon_hub.png
+file:./img/docker/client_daemon_hub.svg
 
 客户端服务端模式可单机可分布式部署
 
@@ -157,6 +155,8 @@ Commands:
   wait        Block until one or more containers stop, then print their exit codes
 
 #+end_src
+
+file:./img/docker/cli.svg
 
 #+begin_src sh
 
@@ -818,7 +818,17 @@ CMD应该用作定义ENTRYPOINT命令的默认参数或在容器中执行ad-hoc命令的一种方法。
 
 当运行带有替代参数的容器时，CMD将被覆盖。
 
-file:./img/docker/entcmd.svg
+#+OPTIONS: ^:nil
+#+CAPTION: 组合
+| |No ENTRYPOINT	|ENTRYPOINT exec_entry p1_entry	|ENTRYPOINT [“exec_entry”, “p1_entry”]|
+|----------+----------+----------+------|  
+|No CMD	|error, not allowed	|/bin/sh -c exec_entry p1_entry	|exec_entry p1_entry|
+|----------+----------+----------+------|  
+|CMD [“exec_cmd”, “p1_cmd”]	|exec_cmd p1_cmd	|/bin/sh -c exec_entry p1_entry	|exec_entry p1_entry exec_cmd p1_cmd|
+|----------+----------+----------+------|  
+|CMD [“p1_cmd”, “p2_cmd”]	|p1_cmd p2_cmd	|/bin/sh -c exec_entry p1_entry	|exec_entry p1_entry p1_cmd p2_cmd|
+|----------+----------+----------+------|  
+|CMD exec_cmd p1_cmd	|/bin/sh -c exec_cmd p1_cmd	|/bin/sh -c exec_entry p1_entry	|exec_entry p1_entry /bin/sh -c exec_cmd p1_cmd|
 
 *** VOLUME
 
@@ -1197,102 +1207,32 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 docker容器的方式进行部署，客户端添加私有仓库地址。
 
+192.168.1.109为客户端
+
+192.168.1.110为服务端
+
 **** 客户端
 
 # 添加这一行
 
 #+begin_src sh
 
-ADD_REGISTRY='--add-registry 192.168.1.136:5000'
+{
+	"insecure-registries": ["192.168.1.110:5000"]
+}
 
 #+end_src
 
 **** 服务端
 
-提示https
-
-需要在服务端的docker配置文件上添加配置参数
-
-centos7下位置为/etc/sysconfig/docker
-
 #+begin_src sh
 
-OPTIONS='--selinux-enabled=false --log-driver=journald --insecure-registry 192.168.1.136:5000'
-
-#+end_src
-
-***** 本地仓库
-
-#+begin_src sh
+#-v /opt/docker/registry:/var/lib/registry 来映射存储
 $ docker run -d -p 5000:5000 --restart always --name registry registry:2
-#+end_src
-
-可以本地使用仓库
-
-#+begin_src sh
-
-$ docker pull ubuntu
-$ docker tag ubuntu localhost:5000/ubuntu
-$ docker push localhost:5000/ubuntu
 
 #+end_src
 
-
-*****  远程仓库
-
-宿主机的防火墙开通端口，docker容器做好参数配置即可。
-
-#+begin_src sh
-
-iptables -I INPUT 1 -p tcp --dport 5000 -j ACCEPT
-
-/etc/sysconfig/docker
-
-OPTIONS='--insecure-registry 192.168.1.136:5000'    #CentOS 7系统
-
-other_args='--insecure-registry 192.168.1.136:5000' #CentOS 6系统
-
-#+end_src
-
-Ubuntu下
-
-#+begin_src sh
-
-sudo vi /etc/init/docker.conf
-
-–insecure-registry 192.168.1.136:5000
-
-#+end_src
-
-重启docker
-
-卷挂载
-
-#+begin_src sh
-
-$ sudo docker run -d -p 5000:5000 -v /opt/data/registry:/tmp/registry registry
-
-#+end_src
-
-查询
-
-如果我们想要查询私有仓库中的所有镜像，使用docker search命令：
-
-#+begin_src sh
-
-# docker search registry_ip:5000/
-
-#+end_src
-
-如果要查询仓库中指定账户下的镜像，则使用如下命令：
-
-#+begin_src sh
-
-# docker search registry_ip:5000/account/
-
-#+end_src
-
-同时也可以指定镜像查询。
+宿主机(192.168.1.110)防火墙开通端口5000。
 
 停止仓库
 
@@ -1302,132 +1242,110 @@ $ docker stop registry && docker rm -v registry
 
 #+end_src
 
-* 知识结构 
+* 远程连接daemon
+
+192.168.1.109为客户端
+
+192.168.1.110为服务端
+
+配置文件位置/etc/docker/daemon.json
+
+#+begin_src sh
+
+{
+	"authorization-plugins": [],
+	"data-root": "",
+	"dns": [],
+	"dns-opts": [],
+	"dns-search": [],
+	"exec-opts": [],
+	"exec-root": "",
+	"experimental": false,
+	"storage-driver": "",
+	"storage-opts": [],
+	"labels": [],
+	"live-restore": true,
+	"log-driver": "",
+	"log-opts": {},
+	"mtu": 0,
+	"pidfile": "",
+	"cluster-store": "",
+	"cluster-store-opts": {},
+	"cluster-advertise": "",
+	"max-concurrent-downloads": 3,
+	"max-concurrent-uploads": 5,
+	"default-shm-size": "64M",
+	"shutdown-timeout": 15,
+	"debug": true,
+	"hosts": [],
+	"log-level": "",
+	"tls": true,
+	"tlsverify": true,
+	"tlscacert": "",
+	"tlscert": "",
+	"tlskey": "",
+	"swarm-default-advertise-addr": "",
+	"api-cors-header": "",
+	"selinux-enabled": false,
+	"userns-remap": "",
+	"group": "",
+	"cgroup-parent": "",
+	"default-ulimits": {},
+	"init": false,
+	"init-path": "/usr/libexec/docker-init",
+	"ipv6": false,
+	"iptables": false,
+	"ip-forward": false,
+	"ip-masq": false,
+	"userland-proxy": false,
+	"userland-proxy-path": "/usr/libexec/docker-proxy",
+	"ip": "0.0.0.0",
+	"bridge": "",
+	"bip": "",
+	"fixed-cidr": "",
+	"fixed-cidr-v6": "",
+	"default-gateway": "",
+	"default-gateway-v6": "",
+	"icc": false,
+	"raw-logs": false,
+	"allow-nondistributable-artifacts": [],
+	"registry-mirrors": [],
+	"seccomp-profile": "",
+	"insecure-registries": [],
+	"disable-legacy-registry": false,
+	"no-new-privileges": false,
+	"default-runtime": "runc",
+	"oom-score-adjust": -500,
+	"runtimes": {
+		"runc": {
+			"path": "runc"
+		},
+		"custom": {
+			"path": "/usr/local/bin/my-runc-replacement",
+			"runtimeArgs": [
+				"--debug"
+			]
+		}
+	}
+}
+
+#+end_src
+
+服务端配置内容
+
+#+begin_src sh
+
+{
+	"hosts": ["unix:///var/run/docker.sock","192.168.1.110:2357"]
+}
+
+#+end_src
+
+客户端连接方式
+
+#+begin_src sh
 
-1、容器
+docker -H 192.168.1.110:2357 <cmd>
 
-容器 vs. 虚拟机
+#+end_src
 
-容器的优势
-
-容器带来的问题
-
-容器文件系统
-
-容器网络
-
-bridge
-
-overlay
-
-容器的资源管理
-
-cgroup
-
-容器安全
-
-Docker registration
-
-搭建
-
-认证授权
-
-image管理
-
-2、Kubernetes架构
-
-Kubernetes由来
-
-Google Borg简介
-
-Why kubernetes
-
-集群管理软件应遵循的规范
-
-Kubernetes所遵循的规范
-
-技术架构
-
-组件
-
-组件间的通讯机制
-
-分布式存储
-
-3、Kubernetes安装
-
-环境准备
-
-搭建Kubernetes集群
-
-4、Kubernetes功能导览
-
-Kubernetes entities
-
-Kubernetes specs (templates)
-
-Kubernetes controllers
-
-深入了解Kubernetes内置entities
-
-集群管理者需要关注的实体
-
-应用开发者需要关注的实体
-
-5、监控解决方案
-
-健康检查与服务容错
-
-日志收集与分析
-
-监控系统构建
-
-常用数据系统构建模式
-
-Kubernetes集群中的日志系统
-
-Kubernetes集群中的监控系统
-
-6、Kubernetes高阶——设计和实现
-
-Kubernetes的数据库——etcd
-
-raft协议
-
-etcd的实现
-
-Kubernetes如何使用etcd
-
-如何构建高可用的etcd集群
-
-Kubernetes网络
-
-CNI
-
-常用网络插件比较
-
-Kubernetes调度
-
-Kubernetes调度器原理
-
-Affinity
-
-7、Kubernetes落地实践
-
-自定义Bootstrapper
-
-介绍一个自定义的cluster bootstrapper实践
-
-自定义cloud provider
-
-LB解决方案
-
-存储方案
-
-服务发现解决方案
-
-集群联邦
-
-自定义网络插件
-
-介绍一个网络插件实践
